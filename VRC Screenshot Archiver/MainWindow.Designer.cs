@@ -47,6 +47,7 @@ namespace VRC_Screenshot_Archiver
             this.minimizeButton = new FontAwesome.Sharp.IconButton();
             this.closeButton = new FontAwesome.Sharp.IconButton();
             this.label3 = new System.Windows.Forms.Label();
+            this.githubButton = new FontAwesome.Sharp.IconButton();
             this.titleBar.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -224,6 +225,21 @@ namespace VRC_Screenshot_Archiver
             this.label3.TabIndex = 14;
             this.label3.Text = "VRChat Screenshot Archiver";
             // 
+            // githubButton
+            // 
+            this.githubButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(32)))), ((int)(((byte)(38)))));
+            this.githubButton.FlatAppearance.BorderSize = 0;
+            this.githubButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.githubButton.IconChar = FontAwesome.Sharp.IconChar.Github;
+            this.githubButton.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(209)))), ((int)(((byte)(237)))));
+            this.githubButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.githubButton.Location = new System.Drawing.Point(0, 464);
+            this.githubButton.Name = "githubButton";
+            this.githubButton.Size = new System.Drawing.Size(46, 48);
+            this.githubButton.TabIndex = 15;
+            this.githubButton.UseVisualStyleBackColor = false;
+            this.githubButton.Click += new System.EventHandler(this.githubButton_Click);
+            // 
             // MainWindow
             // 
             this.AcceptButton = this.ArchiveButton;
@@ -231,6 +247,7 @@ namespace VRC_Screenshot_Archiver
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(32)))), ((int)(((byte)(38)))));
             this.ClientSize = new System.Drawing.Size(767, 507);
+            this.Controls.Add(this.githubButton);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.titleBar);
             this.Controls.Add(this.Textbox2);
@@ -270,6 +287,7 @@ namespace VRC_Screenshot_Archiver
         private System.Windows.Forms.Label label3;
         private FontAwesome.Sharp.IconButton closeButton;
         private FontAwesome.Sharp.IconButton minimizeButton;
+        private FontAwesome.Sharp.IconButton githubButton;
     }
 }
 

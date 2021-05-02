@@ -90,6 +90,11 @@ namespace VRC_Screenshot_Archiver
             WindowState = FormWindowState.Minimized;
         }
 
+        private void githubButton_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/Ekas-118/VRChat-Screenshot-Archiver");
+        }
+
         private void titleBar_MouseDown(object sender, MouseEventArgs e)
         {
             mouseDown = true;
