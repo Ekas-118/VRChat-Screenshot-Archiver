@@ -62,7 +62,7 @@ namespace VRC_Screenshot_Archiver
             this.BrowseDestination.Location = new System.Drawing.Point(540, 269);
             this.BrowseDestination.Name = "BrowseDestination";
             this.BrowseDestination.Size = new System.Drawing.Size(98, 27);
-            this.BrowseDestination.TabIndex = 1;
+            this.BrowseDestination.TabIndex = 4;
             this.BrowseDestination.Text = "Browse...";
             this.BrowseDestination.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.BrowseDestination.UseVisualStyleBackColor = false;
@@ -76,7 +76,8 @@ namespace VRC_Screenshot_Archiver
             this.SourcePath.Location = new System.Drawing.Point(238, 212);
             this.SourcePath.Name = "SourcePath";
             this.SourcePath.Size = new System.Drawing.Size(296, 26);
-            this.SourcePath.TabIndex = 2;
+            this.SourcePath.TabIndex = 1;
+            this.SourcePath.TabStop = false;
             // 
             // DestinationPath
             // 
@@ -87,6 +88,7 @@ namespace VRC_Screenshot_Archiver
             this.DestinationPath.Name = "DestinationPath";
             this.DestinationPath.Size = new System.Drawing.Size(296, 26);
             this.DestinationPath.TabIndex = 3;
+            this.DestinationPath.TabStop = false;
             // 
             // label1
             // 
@@ -121,7 +123,7 @@ namespace VRC_Screenshot_Archiver
             this.BrowseSource.Location = new System.Drawing.Point(540, 212);
             this.BrowseSource.Name = "BrowseSource";
             this.BrowseSource.Size = new System.Drawing.Size(98, 27);
-            this.BrowseSource.TabIndex = 6;
+            this.BrowseSource.TabIndex = 2;
             this.BrowseSource.Text = "Browse...";
             this.BrowseSource.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.BrowseSource.UseVisualStyleBackColor = false;
@@ -139,7 +141,7 @@ namespace VRC_Screenshot_Archiver
             this.ArchiveButton.Location = new System.Drawing.Point(266, 343);
             this.ArchiveButton.Name = "ArchiveButton";
             this.ArchiveButton.Size = new System.Drawing.Size(241, 47);
-            this.ArchiveButton.TabIndex = 8;
+            this.ArchiveButton.TabIndex = 5;
             this.ArchiveButton.Text = "Archive";
             this.ArchiveButton.UseVisualStyleBackColor = false;
             this.ArchiveButton.Click += new System.EventHandler(this.ArchiveButton_Click);
@@ -194,6 +196,7 @@ namespace VRC_Screenshot_Archiver
             this.minimizeButton.Name = "minimizeButton";
             this.minimizeButton.Size = new System.Drawing.Size(45, 30);
             this.minimizeButton.TabIndex = 2;
+            this.minimizeButton.TabStop = false;
             this.minimizeButton.UseVisualStyleBackColor = true;
             this.minimizeButton.Click += new System.EventHandler(this.minimizeButton_Click);
             // 
@@ -211,6 +214,7 @@ namespace VRC_Screenshot_Archiver
             this.closeButton.Rotation = 90D;
             this.closeButton.Size = new System.Drawing.Size(45, 30);
             this.closeButton.TabIndex = 0;
+            this.closeButton.TabStop = false;
             this.closeButton.UseVisualStyleBackColor = true;
             this.closeButton.Click += new System.EventHandler(this.closeButton_Click);
             // 
@@ -222,7 +226,7 @@ namespace VRC_Screenshot_Archiver
             this.label3.Location = new System.Drawing.Point(42, 82);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(681, 54);
-            this.label3.TabIndex = 14;
+            this.label3.TabIndex = 0;
             this.label3.Text = "VRChat Screenshot Archiver";
             // 
             // githubButton
@@ -236,7 +240,7 @@ namespace VRC_Screenshot_Archiver
             this.githubButton.Location = new System.Drawing.Point(0, 464);
             this.githubButton.Name = "githubButton";
             this.githubButton.Size = new System.Drawing.Size(46, 48);
-            this.githubButton.TabIndex = 15;
+            this.githubButton.TabIndex = 6;
             this.githubButton.UseVisualStyleBackColor = false;
             this.githubButton.Click += new System.EventHandler(this.githubButton_Click);
             // 
