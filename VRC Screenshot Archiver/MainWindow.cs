@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Configuration;
 
 namespace VRC_Screenshot_Archiver
 {
@@ -12,6 +13,15 @@ namespace VRC_Screenshot_Archiver
             // Set the source and destination folder textbox values
             SetDirectories();
         }
+
+        /// <summary>
+        /// Mouse location variables for moving the window
+        /// </summary>
+        int mouseinX, mouseinY, mouseX, mouseY;
+        /// <summary>
+        /// True while the left mouse button is clicked down
+        /// </summary>
+        bool mouseDown = false;
 
         /// <summary>
         /// Retrieves directories from directories.txt and inserts them into source and destination folder textboxes
@@ -70,5 +80,37 @@ namespace VRC_Screenshot_Archiver
             ArchiveButton.Enabled = true;
         }
 
+        private void closeButton_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void minimizeButton_Click(object sender, EventArgs e)
+        {
+            WindowState = FormWindowState.Minimized;
+        }
+
+        private void titleBar_MouseDown(object sender, MouseEventArgs e)
+        {
+            mouseDown = true;
+            mouseinX = MousePosition.X - Bounds.X;
+            mouseinY = MousePosition.Y - Bounds.Y;
+        }
+
+        private void titleBar_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (mouseDown)
+            {
+                mouseX = MousePosition.X - mouseinX;
+                mouseY = MousePosition.Y - mouseinY;
+
+                this.SetDesktopLocation(mouseX, mouseY);
+            }
+        }
+
+        private void titleBar_MouseUp(object sender, MouseEventArgs e)
+        {
+            mouseDown = false;
+        }
     }
 }

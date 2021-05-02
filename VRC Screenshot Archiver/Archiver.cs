@@ -13,6 +13,7 @@ namespace VRC_Screenshot_Archiver
         /// Regex for filtering VRChat screenshot files
         /// </summary>
         private static Regex reg = new Regex("^VRChat_[0-9]{3,4}x[0-9]{3,4}_[0-9]{4}-[0-9]{2}-[0-9]{2}_[0-9]{2}-[0-9]{2}-[0-9]{2}.[0-9]{3}.png$");
+
         /// <summary>
         /// Archives VRChat screenshots by moving them to another destination and grouping them into folders by date
         /// </summary>

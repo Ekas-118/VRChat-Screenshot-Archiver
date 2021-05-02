@@ -59,15 +59,5 @@ namespace VRC_Screenshot_Archiver.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Vrchatlogo {
-            get {
-                object obj = ResourceManager.GetObject("Vrchatlogo", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
     }
 }

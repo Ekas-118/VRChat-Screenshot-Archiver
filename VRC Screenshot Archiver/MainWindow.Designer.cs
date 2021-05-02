@@ -1,4 +1,7 @@
 ﻿
+using System;
+using System.IO;
+
 namespace VRC_Screenshot_Archiver
 {
     partial class MainWindow
@@ -37,22 +40,31 @@ namespace VRC_Screenshot_Archiver
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.BrowseSource = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.ArchiveButton = new System.Windows.Forms.Button();
             this.Textbox1 = new System.Windows.Forms.Label();
             this.Textbox2 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.titleBar = new System.Windows.Forms.Panel();
+            this.minimizeButton = new FontAwesome.Sharp.IconButton();
+            this.closeButton = new FontAwesome.Sharp.IconButton();
+            this.label3 = new System.Windows.Forms.Label();
+            this.titleBar.SuspendLayout();
             this.SuspendLayout();
             // 
             // BrowseDestination
             // 
             this.BrowseDestination.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.BrowseDestination.Location = new System.Drawing.Point(528, 256);
+            this.BrowseDestination.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(136)))), ((int)(((byte)(151)))));
+            this.BrowseDestination.FlatAppearance.BorderSize = 0;
+            this.BrowseDestination.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BrowseDestination.Font = new System.Drawing.Font("Bahnschrift SemiLight SemiConde", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BrowseDestination.ForeColor = System.Drawing.Color.White;
+            this.BrowseDestination.Location = new System.Drawing.Point(540, 269);
             this.BrowseDestination.Name = "BrowseDestination";
             this.BrowseDestination.Size = new System.Drawing.Size(98, 27);
             this.BrowseDestination.TabIndex = 1;
             this.BrowseDestination.Text = "Browse...";
-            this.BrowseDestination.UseVisualStyleBackColor = true;
+            this.BrowseDestination.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.BrowseDestination.UseVisualStyleBackColor = false;
             this.BrowseDestination.Click += new System.EventHandler(this.BrowseDestination_Click);
             // 
             // SourcePath
@@ -60,9 +72,9 @@ namespace VRC_Screenshot_Archiver
             this.SourcePath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.SourcePath.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
-            this.SourcePath.Location = new System.Drawing.Point(242, 199);
+            this.SourcePath.Location = new System.Drawing.Point(238, 212);
             this.SourcePath.Name = "SourcePath";
-            this.SourcePath.Size = new System.Drawing.Size(280, 26);
+            this.SourcePath.Size = new System.Drawing.Size(296, 26);
             this.SourcePath.TabIndex = 2;
             // 
             // DestinationPath
@@ -70,78 +82,76 @@ namespace VRC_Screenshot_Archiver
             this.DestinationPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.DestinationPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
-            this.DestinationPath.Location = new System.Drawing.Point(242, 256);
+            this.DestinationPath.Location = new System.Drawing.Point(238, 269);
             this.DestinationPath.Name = "DestinationPath";
-            this.DestinationPath.Size = new System.Drawing.Size(280, 26);
+            this.DestinationPath.Size = new System.Drawing.Size(296, 26);
             this.DestinationPath.TabIndex = 3;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
+            this.label1.Font = new System.Drawing.Font("Bahnschrift SemiLight SemiConde", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(131, 203);
+            this.label1.Location = new System.Drawing.Point(139, 215);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(105, 18);
+            this.label1.Size = new System.Drawing.Size(95, 19);
             this.label1.TabIndex = 4;
             this.label1.Text = "Source folder:";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
+            this.label2.Font = new System.Drawing.Font("Bahnschrift SemiLight SemiConde", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(102, 260);
+            this.label2.Location = new System.Drawing.Point(110, 273);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(134, 18);
+            this.label2.Size = new System.Drawing.Size(124, 19);
             this.label2.TabIndex = 5;
             this.label2.Text = "Destination folder:";
             // 
             // BrowseSource
             // 
             this.BrowseSource.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.BrowseSource.Location = new System.Drawing.Point(528, 200);
+            this.BrowseSource.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(136)))), ((int)(((byte)(151)))));
+            this.BrowseSource.FlatAppearance.BorderSize = 0;
+            this.BrowseSource.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BrowseSource.Font = new System.Drawing.Font("Bahnschrift SemiLight SemiConde", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BrowseSource.ForeColor = System.Drawing.Color.White;
+            this.BrowseSource.Location = new System.Drawing.Point(540, 212);
             this.BrowseSource.Name = "BrowseSource";
             this.BrowseSource.Size = new System.Drawing.Size(98, 27);
             this.BrowseSource.TabIndex = 6;
             this.BrowseSource.Text = "Browse...";
-            this.BrowseSource.UseVisualStyleBackColor = true;
+            this.BrowseSource.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.BrowseSource.UseVisualStyleBackColor = false;
             this.BrowseSource.Click += new System.EventHandler(this.BrowseSource_Click);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox1.Image = global::VRC_Screenshot_Archiver.Properties.Resources.Vrchatlogo;
-            this.pictureBox1.Location = new System.Drawing.Point(220, 41);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(324, 136);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 7;
-            this.pictureBox1.TabStop = false;
             // 
             // ArchiveButton
             // 
             this.ArchiveButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.ArchiveButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
-            this.ArchiveButton.Location = new System.Drawing.Point(299, 333);
+            this.ArchiveButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(209)))), ((int)(((byte)(237)))));
+            this.ArchiveButton.FlatAppearance.BorderSize = 0;
+            this.ArchiveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ArchiveButton.Font = new System.Drawing.Font("Bahnschrift SemiLight SemiConde", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
+            this.ArchiveButton.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.ArchiveButton.Location = new System.Drawing.Point(266, 343);
             this.ArchiveButton.Name = "ArchiveButton";
-            this.ArchiveButton.Size = new System.Drawing.Size(167, 56);
+            this.ArchiveButton.Size = new System.Drawing.Size(241, 47);
             this.ArchiveButton.TabIndex = 8;
             this.ArchiveButton.Text = "Archive";
-            this.ArchiveButton.UseVisualStyleBackColor = true;
+            this.ArchiveButton.UseVisualStyleBackColor = false;
             this.ArchiveButton.Click += new System.EventHandler(this.ArchiveButton_Click);
             // 
             // Textbox1
             // 
             this.Textbox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.Textbox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
+            this.Textbox1.Font = new System.Drawing.Font("Bahnschrift SemiLight SemiConde", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Textbox1.ForeColor = System.Drawing.Color.White;
-            this.Textbox1.Location = new System.Drawing.Point(96, 404);
+            this.Textbox1.Location = new System.Drawing.Point(92, 405);
             this.Textbox1.Name = "Textbox1";
-            this.Textbox1.Size = new System.Drawing.Size(576, 20);
+            this.Textbox1.Size = new System.Drawing.Size(592, 17);
             this.Textbox1.TabIndex = 11;
             this.Textbox1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -149,37 +159,96 @@ namespace VRC_Screenshot_Archiver
             // 
             this.Textbox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.Textbox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
+            this.Textbox2.Font = new System.Drawing.Font("Bahnschrift SemiLight SemiConde", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Textbox2.ForeColor = System.Drawing.Color.White;
-            this.Textbox2.Location = new System.Drawing.Point(96, 434);
+            this.Textbox2.Location = new System.Drawing.Point(92, 435);
             this.Textbox2.Name = "Textbox2";
-            this.Textbox2.Size = new System.Drawing.Size(576, 20);
+            this.Textbox2.Size = new System.Drawing.Size(592, 17);
             this.Textbox2.TabIndex = 12;
             this.Textbox2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // titleBar
+            // 
+            this.titleBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(209)))), ((int)(((byte)(237)))));
+            this.titleBar.Controls.Add(this.minimizeButton);
+            this.titleBar.Controls.Add(this.closeButton);
+            this.titleBar.Dock = System.Windows.Forms.DockStyle.Top;
+            this.titleBar.Location = new System.Drawing.Point(0, 0);
+            this.titleBar.Name = "titleBar";
+            this.titleBar.Size = new System.Drawing.Size(767, 30);
+            this.titleBar.TabIndex = 13;
+            this.titleBar.MouseDown += new System.Windows.Forms.MouseEventHandler(this.titleBar_MouseDown);
+            this.titleBar.MouseMove += new System.Windows.Forms.MouseEventHandler(this.titleBar_MouseMove);
+            this.titleBar.MouseUp += new System.Windows.Forms.MouseEventHandler(this.titleBar_MouseUp);
+            // 
+            // minimizeButton
+            // 
+            this.minimizeButton.FlatAppearance.BorderSize = 0;
+            this.minimizeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.minimizeButton.IconChar = FontAwesome.Sharp.IconChar.WindowMinimize;
+            this.minimizeButton.IconColor = System.Drawing.Color.White;
+            this.minimizeButton.IconFont = FontAwesome.Sharp.IconFont.Solid;
+            this.minimizeButton.IconSize = 25;
+            this.minimizeButton.Location = new System.Drawing.Point(678, 0);
+            this.minimizeButton.Name = "minimizeButton";
+            this.minimizeButton.Size = new System.Drawing.Size(45, 30);
+            this.minimizeButton.TabIndex = 2;
+            this.minimizeButton.UseVisualStyleBackColor = true;
+            this.minimizeButton.Click += new System.EventHandler(this.minimizeButton_Click);
+            // 
+            // closeButton
+            // 
+            this.closeButton.FlatAppearance.BorderSize = 0;
+            this.closeButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.closeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.closeButton.IconChar = FontAwesome.Sharp.IconChar.Times;
+            this.closeButton.IconColor = System.Drawing.Color.White;
+            this.closeButton.IconFont = FontAwesome.Sharp.IconFont.Solid;
+            this.closeButton.IconSize = 25;
+            this.closeButton.Location = new System.Drawing.Point(722, 0);
+            this.closeButton.Name = "closeButton";
+            this.closeButton.Rotation = 90D;
+            this.closeButton.Size = new System.Drawing.Size(45, 30);
+            this.closeButton.TabIndex = 0;
+            this.closeButton.UseVisualStyleBackColor = true;
+            this.closeButton.Click += new System.EventHandler(this.closeButton_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Arial Rounded MT Bold", 35F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.White;
+            this.label3.Location = new System.Drawing.Point(42, 82);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(681, 54);
+            this.label3.TabIndex = 14;
+            this.label3.Text = "VRChat Screenshot Archiver";
             // 
             // MainWindow
             // 
             this.AcceptButton = this.ArchiveButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.ClientSize = new System.Drawing.Size(751, 505);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(32)))), ((int)(((byte)(38)))));
+            this.ClientSize = new System.Drawing.Size(767, 507);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.titleBar);
             this.Controls.Add(this.Textbox2);
             this.Controls.Add(this.Textbox1);
             this.Controls.Add(this.ArchiveButton);
             this.Controls.Add(this.BrowseSource);
             this.Controls.Add(this.BrowseDestination);
-            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.DestinationPath);
             this.Controls.Add(this.SourcePath);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(767, 507);
             this.Name = "MainWindow";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "VRC Screenshot Archiver";
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.titleBar.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -194,10 +263,13 @@ namespace VRC_Screenshot_Archiver
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button BrowseSource;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button ArchiveButton;
         private System.Windows.Forms.Label Textbox1;
         private System.Windows.Forms.Label Textbox2;
+        private System.Windows.Forms.Panel titleBar;
+        private System.Windows.Forms.Label label3;
+        private FontAwesome.Sharp.IconButton closeButton;
+        private FontAwesome.Sharp.IconButton minimizeButton;
     }
 }
 
