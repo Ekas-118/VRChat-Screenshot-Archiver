@@ -16,6 +16,11 @@ namespace VRC_Screenshot_Archiver
         /// Returns the directories.txt file path
         /// </summary>
         public static string DirectoriesPath { get; } = Path.Combine(UserdataPath, "directories.txt");
+        
+        /// <summary>
+        /// Returns the settings.txt file path
+        /// </summary>
+        public static string SettingsPath { get; } = Path.Combine(UserdataPath, "settings.txt");
 
         /// <summary>
         /// Gets the contents of the directories.txt file
@@ -50,6 +55,41 @@ namespace VRC_Screenshot_Archiver
                 File.Create(DirectoriesPath);
 
             File.WriteAllText(DirectoriesPath, source + "\n" + destination);
+        }
+
+        /// <summary>
+        /// Gets the contents of the settings.txt file
+        /// </summary>
+        /// <returns></returns>
+        public static Sorting GetSettings()
+        {
+            if (File.Exists(SettingsPath))
+            {
+                var settings = File.ReadAllText(SettingsPath).ToCharArray();
+                // If we find a int value, return it. Otherwise, return a default value
+                return settings.Length == 1 & Char.IsDigit(settings[0]) ? (Sorting)(int)Char.GetNumericValue(settings[0]) : Sorting.ByDay;
+            }
+            else
+            {
+                // Create directory and text file
+                Directory.CreateDirectory(UserdataPath);
+                File.Create(SettingsPath).Dispose();
+                File.WriteAllText(SettingsPath, ((int)Sorting.ByDay).ToString());
+                return Sorting.ByDay;
+            }
+        }
+
+        /// <summary>
+        /// Takes the entered directories and saves them to settings.txt
+        /// </summary>
+        /// <param name="settings">The sorting settings</param>
+        public static void SaveSettings(Sorting settings)
+        {
+            // If settings.txt does not exist, create it
+            if (!File.Exists(SettingsPath))
+                File.Create(SettingsPath);
+
+            File.WriteAllText(SettingsPath, ((int)settings).ToString());
         }
 
     }

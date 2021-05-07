@@ -37,18 +37,19 @@ namespace VRC_Screenshot_Archiver
             this.BrowseDestination = new System.Windows.Forms.Button();
             this.SourcePath = new System.Windows.Forms.TextBox();
             this.DestinationPath = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.SourceLabel = new System.Windows.Forms.Label();
+            this.DestinationLabel = new System.Windows.Forms.Label();
             this.BrowseSource = new System.Windows.Forms.Button();
             this.ArchiveButton = new System.Windows.Forms.Button();
             this.Textbox1 = new System.Windows.Forms.Label();
             this.Textbox2 = new System.Windows.Forms.Label();
-            this.titleBar = new System.Windows.Forms.Panel();
-            this.minimizeButton = new FontAwesome.Sharp.IconButton();
-            this.closeButton = new FontAwesome.Sharp.IconButton();
-            this.label3 = new System.Windows.Forms.Label();
-            this.githubButton = new FontAwesome.Sharp.IconButton();
-            this.titleBar.SuspendLayout();
+            this.TitleBar = new System.Windows.Forms.Panel();
+            this.MinimizeButton = new FontAwesome.Sharp.IconButton();
+            this.CloseButton = new FontAwesome.Sharp.IconButton();
+            this.TitleLabel = new System.Windows.Forms.Label();
+            this.GithubButton = new FontAwesome.Sharp.IconButton();
+            this.SettingsButton = new FontAwesome.Sharp.IconButton();
+            this.TitleBar.SuspendLayout();
             this.SuspendLayout();
             // 
             // BrowseDestination
@@ -90,27 +91,27 @@ namespace VRC_Screenshot_Archiver
             this.DestinationPath.TabIndex = 3;
             this.DestinationPath.TabStop = false;
             // 
-            // label1
+            // SourceLabel
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Bahnschrift SemiLight SemiConde", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(139, 215);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(95, 19);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "Source folder:";
+            this.SourceLabel.AutoSize = true;
+            this.SourceLabel.Font = new System.Drawing.Font("Bahnschrift SemiLight SemiConde", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SourceLabel.ForeColor = System.Drawing.Color.White;
+            this.SourceLabel.Location = new System.Drawing.Point(139, 215);
+            this.SourceLabel.Name = "SourceLabel";
+            this.SourceLabel.Size = new System.Drawing.Size(95, 19);
+            this.SourceLabel.TabIndex = 4;
+            this.SourceLabel.Text = "Source folder:";
             // 
-            // label2
+            // DestinationLabel
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Bahnschrift SemiLight SemiConde", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(110, 273);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(124, 19);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "Destination folder:";
+            this.DestinationLabel.AutoSize = true;
+            this.DestinationLabel.Font = new System.Drawing.Font("Bahnschrift SemiLight SemiConde", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DestinationLabel.ForeColor = System.Drawing.Color.White;
+            this.DestinationLabel.Location = new System.Drawing.Point(110, 273);
+            this.DestinationLabel.Name = "DestinationLabel";
+            this.DestinationLabel.Size = new System.Drawing.Size(124, 19);
+            this.DestinationLabel.TabIndex = 5;
+            this.DestinationLabel.Text = "Destination folder:";
             // 
             // BrowseSource
             // 
@@ -154,7 +155,7 @@ namespace VRC_Screenshot_Archiver
             this.Textbox1.ForeColor = System.Drawing.Color.White;
             this.Textbox1.Location = new System.Drawing.Point(92, 405);
             this.Textbox1.Name = "Textbox1";
-            this.Textbox1.Size = new System.Drawing.Size(592, 17);
+            this.Textbox1.Size = new System.Drawing.Size(592, 20);
             this.Textbox1.TabIndex = 11;
             this.Textbox1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -166,83 +167,99 @@ namespace VRC_Screenshot_Archiver
             this.Textbox2.ForeColor = System.Drawing.Color.White;
             this.Textbox2.Location = new System.Drawing.Point(92, 435);
             this.Textbox2.Name = "Textbox2";
-            this.Textbox2.Size = new System.Drawing.Size(592, 17);
+            this.Textbox2.Size = new System.Drawing.Size(592, 20);
             this.Textbox2.TabIndex = 12;
             this.Textbox2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // titleBar
+            // TitleBar
             // 
-            this.titleBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(209)))), ((int)(((byte)(237)))));
-            this.titleBar.Controls.Add(this.minimizeButton);
-            this.titleBar.Controls.Add(this.closeButton);
-            this.titleBar.Dock = System.Windows.Forms.DockStyle.Top;
-            this.titleBar.Location = new System.Drawing.Point(0, 0);
-            this.titleBar.Name = "titleBar";
-            this.titleBar.Size = new System.Drawing.Size(767, 30);
-            this.titleBar.TabIndex = 13;
-            this.titleBar.MouseDown += new System.Windows.Forms.MouseEventHandler(this.titleBar_MouseDown);
-            this.titleBar.MouseMove += new System.Windows.Forms.MouseEventHandler(this.titleBar_MouseMove);
-            this.titleBar.MouseUp += new System.Windows.Forms.MouseEventHandler(this.titleBar_MouseUp);
+            this.TitleBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(209)))), ((int)(((byte)(237)))));
+            this.TitleBar.Controls.Add(this.MinimizeButton);
+            this.TitleBar.Controls.Add(this.CloseButton);
+            this.TitleBar.Dock = System.Windows.Forms.DockStyle.Top;
+            this.TitleBar.Location = new System.Drawing.Point(0, 0);
+            this.TitleBar.Name = "TitleBar";
+            this.TitleBar.Size = new System.Drawing.Size(767, 30);
+            this.TitleBar.TabIndex = 13;
+            this.TitleBar.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TitleBar_MouseDown);
+            this.TitleBar.MouseMove += new System.Windows.Forms.MouseEventHandler(this.TitleBar_MouseMove);
+            this.TitleBar.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TitleBar_MouseUp);
             // 
-            // minimizeButton
+            // MinimizeButton
             // 
-            this.minimizeButton.FlatAppearance.BorderSize = 0;
-            this.minimizeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.minimizeButton.IconChar = FontAwesome.Sharp.IconChar.WindowMinimize;
-            this.minimizeButton.IconColor = System.Drawing.Color.White;
-            this.minimizeButton.IconFont = FontAwesome.Sharp.IconFont.Solid;
-            this.minimizeButton.IconSize = 25;
-            this.minimizeButton.Location = new System.Drawing.Point(678, 0);
-            this.minimizeButton.Name = "minimizeButton";
-            this.minimizeButton.Size = new System.Drawing.Size(45, 30);
-            this.minimizeButton.TabIndex = 2;
-            this.minimizeButton.TabStop = false;
-            this.minimizeButton.UseVisualStyleBackColor = true;
-            this.minimizeButton.Click += new System.EventHandler(this.minimizeButton_Click);
+            this.MinimizeButton.FlatAppearance.BorderSize = 0;
+            this.MinimizeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.MinimizeButton.IconChar = FontAwesome.Sharp.IconChar.WindowMinimize;
+            this.MinimizeButton.IconColor = System.Drawing.Color.White;
+            this.MinimizeButton.IconFont = FontAwesome.Sharp.IconFont.Solid;
+            this.MinimizeButton.IconSize = 25;
+            this.MinimizeButton.Location = new System.Drawing.Point(678, 0);
+            this.MinimizeButton.Name = "MinimizeButton";
+            this.MinimizeButton.Size = new System.Drawing.Size(45, 30);
+            this.MinimizeButton.TabIndex = 2;
+            this.MinimizeButton.TabStop = false;
+            this.MinimizeButton.UseVisualStyleBackColor = true;
+            this.MinimizeButton.Click += new System.EventHandler(this.MinimizeButton_Click);
             // 
-            // closeButton
+            // CloseButton
             // 
-            this.closeButton.FlatAppearance.BorderSize = 0;
-            this.closeButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.closeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.closeButton.IconChar = FontAwesome.Sharp.IconChar.Times;
-            this.closeButton.IconColor = System.Drawing.Color.White;
-            this.closeButton.IconFont = FontAwesome.Sharp.IconFont.Solid;
-            this.closeButton.IconSize = 25;
-            this.closeButton.Location = new System.Drawing.Point(722, 0);
-            this.closeButton.Name = "closeButton";
-            this.closeButton.Rotation = 90D;
-            this.closeButton.Size = new System.Drawing.Size(45, 30);
-            this.closeButton.TabIndex = 0;
-            this.closeButton.TabStop = false;
-            this.closeButton.UseVisualStyleBackColor = true;
-            this.closeButton.Click += new System.EventHandler(this.closeButton_Click);
+            this.CloseButton.FlatAppearance.BorderSize = 0;
+            this.CloseButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.CloseButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.CloseButton.IconChar = FontAwesome.Sharp.IconChar.Times;
+            this.CloseButton.IconColor = System.Drawing.Color.White;
+            this.CloseButton.IconFont = FontAwesome.Sharp.IconFont.Solid;
+            this.CloseButton.IconSize = 25;
+            this.CloseButton.Location = new System.Drawing.Point(722, 0);
+            this.CloseButton.Name = "CloseButton";
+            this.CloseButton.Rotation = 90D;
+            this.CloseButton.Size = new System.Drawing.Size(45, 30);
+            this.CloseButton.TabIndex = 0;
+            this.CloseButton.TabStop = false;
+            this.CloseButton.UseVisualStyleBackColor = true;
+            this.CloseButton.Click += new System.EventHandler(this.CloseButton_Click);
             // 
-            // label3
+            // TitleLabel
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Arial Rounded MT Bold", 35F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(42, 82);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(681, 54);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "VRChat Screenshot Archiver";
+            this.TitleLabel.AutoSize = true;
+            this.TitleLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 35F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TitleLabel.ForeColor = System.Drawing.Color.White;
+            this.TitleLabel.Location = new System.Drawing.Point(42, 82);
+            this.TitleLabel.Name = "TitleLabel";
+            this.TitleLabel.Size = new System.Drawing.Size(681, 54);
+            this.TitleLabel.TabIndex = 0;
+            this.TitleLabel.Text = "VRChat Screenshot Archiver";
             // 
-            // githubButton
+            // GithubButton
             // 
-            this.githubButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(32)))), ((int)(((byte)(38)))));
-            this.githubButton.FlatAppearance.BorderSize = 0;
-            this.githubButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.githubButton.IconChar = FontAwesome.Sharp.IconChar.Github;
-            this.githubButton.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(209)))), ((int)(((byte)(237)))));
-            this.githubButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.githubButton.Location = new System.Drawing.Point(0, 464);
-            this.githubButton.Name = "githubButton";
-            this.githubButton.Size = new System.Drawing.Size(46, 48);
-            this.githubButton.TabIndex = 6;
-            this.githubButton.UseVisualStyleBackColor = false;
-            this.githubButton.Click += new System.EventHandler(this.githubButton_Click);
+            this.GithubButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(32)))), ((int)(((byte)(38)))));
+            this.GithubButton.FlatAppearance.BorderSize = 0;
+            this.GithubButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.GithubButton.IconChar = FontAwesome.Sharp.IconChar.Github;
+            this.GithubButton.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(209)))), ((int)(((byte)(237)))));
+            this.GithubButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.GithubButton.Location = new System.Drawing.Point(0, 464);
+            this.GithubButton.Name = "GithubButton";
+            this.GithubButton.Size = new System.Drawing.Size(46, 48);
+            this.GithubButton.TabIndex = 6;
+            this.GithubButton.UseVisualStyleBackColor = false;
+            this.GithubButton.Click += new System.EventHandler(this.GithubButton_Click);
+            // 
+            // SettingsButton
+            // 
+            this.SettingsButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(32)))), ((int)(((byte)(38)))));
+            this.SettingsButton.FlatAppearance.BorderSize = 0;
+            this.SettingsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SettingsButton.IconChar = FontAwesome.Sharp.IconChar.Cog;
+            this.SettingsButton.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(209)))), ((int)(((byte)(237)))));
+            this.SettingsButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.SettingsButton.IconSize = 40;
+            this.SettingsButton.Location = new System.Drawing.Point(721, 464);
+            this.SettingsButton.Name = "SettingsButton";
+            this.SettingsButton.Size = new System.Drawing.Size(46, 48);
+            this.SettingsButton.TabIndex = 14;
+            this.SettingsButton.UseVisualStyleBackColor = false;
+            this.SettingsButton.Click += new System.EventHandler(this.SettingsButton_Click);
             // 
             // MainWindow
             // 
@@ -251,16 +268,17 @@ namespace VRC_Screenshot_Archiver
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(32)))), ((int)(((byte)(38)))));
             this.ClientSize = new System.Drawing.Size(767, 507);
-            this.Controls.Add(this.githubButton);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.titleBar);
+            this.Controls.Add(this.SettingsButton);
+            this.Controls.Add(this.GithubButton);
+            this.Controls.Add(this.TitleLabel);
+            this.Controls.Add(this.TitleBar);
             this.Controls.Add(this.Textbox2);
             this.Controls.Add(this.Textbox1);
             this.Controls.Add(this.ArchiveButton);
             this.Controls.Add(this.BrowseSource);
             this.Controls.Add(this.BrowseDestination);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.DestinationLabel);
+            this.Controls.Add(this.SourceLabel);
             this.Controls.Add(this.DestinationPath);
             this.Controls.Add(this.SourcePath);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -269,7 +287,7 @@ namespace VRC_Screenshot_Archiver
             this.Name = "MainWindow";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "VRC Screenshot Archiver";
-            this.titleBar.ResumeLayout(false);
+            this.TitleBar.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -281,17 +299,18 @@ namespace VRC_Screenshot_Archiver
         private System.Windows.Forms.Button BrowseDestination;
         private System.Windows.Forms.TextBox SourcePath;
         private System.Windows.Forms.TextBox DestinationPath;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label SourceLabel;
+        private System.Windows.Forms.Label DestinationLabel;
         private System.Windows.Forms.Button BrowseSource;
         private System.Windows.Forms.Button ArchiveButton;
         private System.Windows.Forms.Label Textbox1;
         private System.Windows.Forms.Label Textbox2;
-        private System.Windows.Forms.Panel titleBar;
-        private System.Windows.Forms.Label label3;
-        private FontAwesome.Sharp.IconButton closeButton;
-        private FontAwesome.Sharp.IconButton minimizeButton;
-        private FontAwesome.Sharp.IconButton githubButton;
+        private System.Windows.Forms.Panel TitleBar;
+        private System.Windows.Forms.Label TitleLabel;
+        private FontAwesome.Sharp.IconButton CloseButton;
+        private FontAwesome.Sharp.IconButton MinimizeButton;
+        private FontAwesome.Sharp.IconButton GithubButton;
+        private FontAwesome.Sharp.IconButton SettingsButton;
     }
 }
 

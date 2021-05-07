@@ -1,6 +1,6 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Text.RegularExpressions;
-using System.Windows.Forms;
 
 namespace VRC_Screenshot_Archiver
 {
@@ -12,7 +12,7 @@ namespace VRC_Screenshot_Archiver
         /// <summary>
         /// Regex for filtering VRChat screenshot files
         /// </summary>
-        private static Regex reg = new Regex("^VRChat_[0-9]{3,4}x[0-9]{3,4}_[0-9]{4}-[0-9]{2}-[0-9]{2}_[0-9]{2}-[0-9]{2}-[0-9]{2}.[0-9]{3}.png$");
+        private static readonly Regex _regex = new Regex("^VRChat_[0-9]{3,4}x[0-9]{3,4}_[0-9]{4}-[0-9]{2}-[0-9]{2}_[0-9]{2}-[0-9]{2}-[0-9]{2}.[0-9]{3}.png$");
 
         /// <summary>
         /// Archives VRChat screenshots by moving them to another destination and grouping them into folders by date
@@ -20,7 +20,7 @@ namespace VRC_Screenshot_Archiver
         /// <param name="source">Screenshot folder path</param>
         /// <param name="destination">Destination folder path</param>
         /// <param name="form">The main window</param>
-        public static async void ArchiveAsync(string source, string destination, MainWindow form)
+        public static void Archive(string source, string destination, Sorting settings, MainWindow form)
         {
             // Check if entered directories are valid
             if (Directory.Exists(source) && Directory.Exists(destination))
@@ -44,7 +44,7 @@ namespace VRC_Screenshot_Archiver
                 // If the source directory contains files...
                 if (files.Length != 0)
                 {
-                    form.SetTextbox1("0 images moved. 0 failed.");
+                    form.SetTextbox1("0 images moved.");
                     int moved = 0;
                     int failed = 0;
                     foreach (string i in files)
@@ -52,24 +52,32 @@ namespace VRC_Screenshot_Archiver
                         // Get the filename with extension
                         string filename = Path.GetFileName(i);
                         // If the file is a VRChat screenshot...
-                        if (reg.IsMatch(filename))
+                        if (_regex.IsMatch(filename))
                         {
                             // Extract date from filename
                             string date = filename.Remove(0, 17).Remove(10);
-                            // Create a new directory for a specific date (if it does not exist already)
-                            string destPath = Path.Combine(destination, date, filename);
-                            //string destPath2 = Path.Combine(destination, date, filename);
+                            // Prepare the directories for sorting
+                            string dateFolders = string.Empty;
+                            if (settings.HasFlag(Sorting.ByYear))
+                                dateFolders = Path.Combine(dateFolders, $"{date.Remove(4)}");
+                            if (settings.HasFlag(Sorting.ByMonth))
+                                dateFolders = Path.Combine(dateFolders, $"{date.Remove(7)}");
+                            if (settings.HasFlag(Sorting.ByDay))
+                                dateFolders = Path.Combine(dateFolders, $"{date}");
+
+                            // Create a new directory for the current screenshot (if it does not exist already)
+                            string destPath = Path.Combine(destination, dateFolders, filename);
                             try
                             {
-                                Directory.CreateDirectory(Path.Combine(destination, date));
+                                Directory.CreateDirectory(Path.Combine(destination, dateFolders));
                             }
                             catch
                             {
                                 failed++;
                                 form.SetTextbox1(moved + " images moved. " + failed + " failed.");
-                                continue; 
+                                continue;
                             }
-                            // Move file to destination
+                            // Move screenshot to destination
                             try
                             {
                                 File.Move(i, destPath);
@@ -77,10 +85,11 @@ namespace VRC_Screenshot_Archiver
                             }
                             catch
                             { failed++; }
-                            form.SetTextbox1(moved + " images moved. " + failed + " failed.");
+                            form.SetTextbox1(moved + " images moved. " + (failed > 0 ? failed + " failed." : ""));
                         }
                     }
-                    MessageBox.Show("Your screenshots have been moved!");
+                    // Open the destination folder
+                    System.Diagnostics.Process.Start(destination);
                 }
             }
             else
