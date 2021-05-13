@@ -38,7 +38,7 @@ namespace VRC_Screenshot_Archiver
             {
                 // Create directory and text file
                 Directory.CreateDirectory(UserdataPath);
-                File.Create(DirectoriesPath);
+                File.Create(DirectoriesPath).Dispose();
                 return new string[2];
             }
         }
@@ -52,7 +52,7 @@ namespace VRC_Screenshot_Archiver
         {
             // If directories.txt does not exist, create it
             if (!File.Exists(DirectoriesPath))
-                File.Create(DirectoriesPath);
+                File.Create(DirectoriesPath).Dispose();
 
             File.WriteAllText(DirectoriesPath, source + "\n" + destination);
         }
@@ -87,7 +87,7 @@ namespace VRC_Screenshot_Archiver
         {
             // If settings.txt does not exist, create it
             if (!File.Exists(SettingsPath))
-                File.Create(SettingsPath);
+                File.Create(SettingsPath).Dispose();
 
             File.WriteAllText(SettingsPath, ((int)settings).ToString());
         }
