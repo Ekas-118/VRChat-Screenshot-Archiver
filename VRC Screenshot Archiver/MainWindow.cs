@@ -7,19 +7,24 @@ namespace VRC_Screenshot_Archiver
 {
     public partial class MainWindow : Form
     {
+        /// <summary>
+        /// Default constructor
+        /// </summary>
         public MainWindow()
         {
             InitializeComponent();
+
             // Set the source and destination folder textbox values
             SetDirectories();
-            // Get the sorting settings
-            _sortSettings = Userdata.GetSettings();
+
+            // Get the grouping settings
+            _groupSettings = (Grouping)Properties.Settings.Default.GroupSettings;
         }
 
         /// <summary>
-        /// The screenshot sorting settings
+        /// The screenshot grouping settings
         /// </summary>
-        private Sorting _sortSettings;
+        private Grouping _groupSettings;
 
         #region Window drag variables
 
@@ -35,21 +40,24 @@ namespace VRC_Screenshot_Archiver
         #endregion
 
         /// <summary>
-        /// Retrieves directories from directories.txt and inserts them into source and destination folder textboxes
+        /// Retrieves directories from user settings and inserts them into source and destination folder textboxes
         /// </summary>
         private void SetDirectories()
         {
-            string[] directories = Userdata.GetDirectories();
-            // If directories.txt is empty...
-            if (directories[0] == null)
-                // Set source folder to default screenshot folder
-                SourcePath.Text = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyPictures), "VRChat");
-            // Otherwise...
-            else
-                // Set source folder to the one specified in directories.txt
-                SourcePath.Text = directories[0];
+            string sourceDirectory = Properties.Settings.Default.SourceDirectory;
+            string destinationDirectory = Properties.Settings.Default.DestinationDirectory;
 
-            DestinationPath.Text = directories[1];
+            // If no setting exists...
+            if(sourceDirectory == String.Empty)
+                // Set source path to Pictures/VRChat
+                SourcePath.Text = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyPictures), "VRChat");
+            // Otherwise... 
+            else
+                // Set source folder to the one specified in user settings
+                SourcePath.Text = sourceDirectory;
+
+            // Set destination folder
+            DestinationPath.Text = destinationDirectory;
         }
 
         /// <summary>
@@ -95,16 +103,16 @@ namespace VRC_Screenshot_Archiver
         private async void ArchiveButton_Click(object sender, EventArgs e)
         {
             ArchiveButton.Enabled = SettingsButton.Enabled = false;
-            await Task.Run(() => Archiver.Archive(SourcePath.Text, DestinationPath.Text, _sortSettings, this));
+            await Task.Run(() => Archiver.Archive(SourcePath.Text, DestinationPath.Text, _groupSettings, this));
             ArchiveButton.Enabled = SettingsButton.Enabled = true;
         }
 
         private void SettingsButton_Click(object sender, EventArgs e)
         {
-            SettingsMenu sm = new SettingsMenu(_sortSettings);
+            SettingsMenu sm = new SettingsMenu(_groupSettings);
             if(sm.ShowDialog() == DialogResult.OK)
             {
-                _sortSettings = sm.SortSettings;
+                _groupSettings = sm.GroupSettings;
             }
         }
 

@@ -5,16 +5,24 @@ namespace VRC_Screenshot_Archiver
 {
     public partial class SettingsMenu : Form
     {
-        public Sorting SortSettings { get; private set; }
+        /// <summary>
+        /// The grouping settings for archiving screenshots
+        /// </summary>
+        public Grouping GroupSettings { get; private set; }
 
-        public SettingsMenu(Sorting settings)
+        /// <summary>
+        /// Default constructor
+        /// </summary>
+        /// <param name="settings">The grouping settings</param>
+        public SettingsMenu(Grouping settings)
         {
             InitializeComponent();
+
             // Set checkbox values
-            YearCheckBox.Checked = settings.HasFlag(Sorting.ByYear);
-            MonthCheckBox.Checked = settings.HasFlag(Sorting.ByMonth);
-            DayCheckBox.Checked = settings.HasFlag(Sorting.ByDay);
-            SortSettings = settings;
+            YearCheckBox.Checked = settings.HasFlag(Grouping.ByYear);
+            MonthCheckBox.Checked = settings.HasFlag(Grouping.ByMonth);
+            DayCheckBox.Checked = settings.HasFlag(Grouping.ByDay);
+            GroupSettings = settings;
         }
 
         #region Window drag variables
@@ -32,13 +40,17 @@ namespace VRC_Screenshot_Archiver
 
         private void CloseButton_Click(object sender, EventArgs e)
         {
+            // Close dialog window
             DialogResult = DialogResult.Cancel;
         }
 
         private void OKButton_Click(object sender, EventArgs e)
         {
-            // Save settings to settings.txt
-            Userdata.SaveSettings(SortSettings);
+            // Save grouping settings
+            Properties.Settings.Default.GroupSettings = (int)GroupSettings;
+            Properties.Settings.Default.Save();
+
+            // Close dialog window
             DialogResult = DialogResult.OK;
         }
 
@@ -46,17 +58,17 @@ namespace VRC_Screenshot_Archiver
 
         private void YearCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            SortSettings ^= Sorting.ByYear;
+            GroupSettings ^= Grouping.ByYear;
         }
 
         private void MonthCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            SortSettings ^= Sorting.ByMonth;
+            GroupSettings ^= Grouping.ByMonth;
         }
 
         private void DayCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            SortSettings ^= Sorting.ByDay;
+            GroupSettings ^= Grouping.ByDay;
         }
 
         #endregion

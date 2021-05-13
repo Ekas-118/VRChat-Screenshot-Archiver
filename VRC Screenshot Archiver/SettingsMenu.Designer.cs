@@ -82,10 +82,10 @@ namespace VRC_Screenshot_Archiver
             this.YearCheckBox.ForeColor = System.Drawing.Color.White;
             this.YearCheckBox.Location = new System.Drawing.Point(81, 131);
             this.YearCheckBox.Name = "YearCheckBox";
-            this.YearCheckBox.Size = new System.Drawing.Size(105, 23);
+            this.YearCheckBox.Size = new System.Drawing.Size(117, 23);
             this.YearCheckBox.TabIndex = 15;
             this.YearCheckBox.TabStop = false;
-            this.YearCheckBox.Text = "Sort by year";
+            this.YearCheckBox.Text = "Group by year";
             this.YearCheckBox.UseVisualStyleBackColor = true;
             this.YearCheckBox.CheckedChanged += new System.EventHandler(this.YearCheckBox_CheckedChanged);
             // 
@@ -129,10 +129,10 @@ namespace VRC_Screenshot_Archiver
             this.DayCheckBox.ForeColor = System.Drawing.Color.White;
             this.DayCheckBox.Location = new System.Drawing.Point(81, 189);
             this.DayCheckBox.Name = "DayCheckBox";
-            this.DayCheckBox.Size = new System.Drawing.Size(100, 23);
+            this.DayCheckBox.Size = new System.Drawing.Size(112, 23);
             this.DayCheckBox.TabIndex = 18;
             this.DayCheckBox.TabStop = false;
-            this.DayCheckBox.Text = "Sort by day";
+            this.DayCheckBox.Text = "Group by day";
             this.DayCheckBox.UseVisualStyleBackColor = true;
             this.DayCheckBox.CheckedChanged += new System.EventHandler(this.DayCheckBox_CheckedChanged);
             // 
@@ -145,10 +145,10 @@ namespace VRC_Screenshot_Archiver
             this.MonthCheckBox.ForeColor = System.Drawing.Color.White;
             this.MonthCheckBox.Location = new System.Drawing.Point(81, 160);
             this.MonthCheckBox.Name = "MonthCheckBox";
-            this.MonthCheckBox.Size = new System.Drawing.Size(117, 23);
+            this.MonthCheckBox.Size = new System.Drawing.Size(129, 23);
             this.MonthCheckBox.TabIndex = 17;
             this.MonthCheckBox.TabStop = false;
-            this.MonthCheckBox.Text = "Sort by month";
+            this.MonthCheckBox.Text = "Group by month";
             this.MonthCheckBox.UseVisualStyleBackColor = true;
             this.MonthCheckBox.CheckedChanged += new System.EventHandler(this.MonthCheckBox_CheckedChanged);
             // 

@@ -3,10 +3,10 @@
 namespace VRC_Screenshot_Archiver
 {
     /// <summary>
-    /// Enum for screenshot sorting settings
+    /// Enum for screenshot grouping settings
     /// </summary>
     [Flags]
-    public enum Sorting
+    public enum Grouping
     {
         ByYear = 1 << 0,
         ByMonth = 1 << 1,
