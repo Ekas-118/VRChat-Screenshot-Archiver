@@ -22,12 +22,14 @@ namespace VRC_Screenshot_Archiver
         /// <param name="form">The main window</param>
         public static void Archive(string source, string destination, Grouping settings, MainWindow form)
         {
+            // The status of the process
+            string[] status = new string[2];
+
             // If entered directories are valid...
             if (Directory.Exists(source) && Directory.Exists(destination))
             {
-                // Clear out textboxes
-                form.SetTextbox1("");
-                form.SetTextbox2("");
+                // Reset status
+                form.UpdateStatus(status);
 
                 // Save entered directories to user settings
                 Properties.Settings.Default.SourceDirectory = source;
@@ -42,16 +44,19 @@ namespace VRC_Screenshot_Archiver
                 }
                 catch
                 {
-                    form.SetTextbox1("Invalid source path.");
+                    status[0] = "Invalid source path.";
+                    form.UpdateStatus(status);
                     return;
                 }
 
-                form.SetTextbox2(files.Length + " images found.");
+                status[1] = files.Length + " images found.";
+                form.UpdateStatus(status);
 
                 // If the source directory contains files...
                 if (files.Length != 0)
                 {
-                    form.SetTextbox1("0 images moved.");
+                    status[0] = "0 images moved.";
+                    form.UpdateStatus(status);
 
                     int moved = 0;
                     int failed = 0;
@@ -84,7 +89,8 @@ namespace VRC_Screenshot_Archiver
                             catch
                             {
                                 failed++;
-                                form.SetTextbox1(moved + " images moved. " + failed + " failed.");
+                                status[0] = moved + " images moved. " + failed + " failed.";
+                                form.UpdateStatus(status);
                                 continue;
                             }
 
@@ -96,7 +102,8 @@ namespace VRC_Screenshot_Archiver
                             }
                             catch
                             { failed++; }
-                            form.SetTextbox1(moved + " images moved. " + (failed > 0 ? failed + " failed." : ""));
+                            status[0] = moved + " images moved. " + (failed > 0 ? failed + " failed." : "");
+                            form.UpdateStatus(status);
                         }
                     }
                     // Open the destination folder
@@ -105,7 +112,10 @@ namespace VRC_Screenshot_Archiver
             }
             // If entered directories are invalid...
             else
-                form.SetTextbox1("Invalid path(s).");
+            {
+                status[0] = "Invalid path(s).";
+                form.UpdateStatus(status);
+            }    
         }
     }
 }

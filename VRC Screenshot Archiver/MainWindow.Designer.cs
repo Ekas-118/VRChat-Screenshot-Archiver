@@ -41,8 +41,7 @@ namespace VRC_Screenshot_Archiver
             this.DestinationLabel = new System.Windows.Forms.Label();
             this.BrowseSource = new System.Windows.Forms.Button();
             this.ArchiveButton = new System.Windows.Forms.Button();
-            this.Textbox1 = new System.Windows.Forms.Label();
-            this.Textbox2 = new System.Windows.Forms.Label();
+            this.StatusLabel = new System.Windows.Forms.Label();
             this.TitleBar = new System.Windows.Forms.Panel();
             this.MinimizeButton = new FontAwesome.Sharp.IconButton();
             this.CloseButton = new FontAwesome.Sharp.IconButton();
@@ -147,29 +146,17 @@ namespace VRC_Screenshot_Archiver
             this.ArchiveButton.UseVisualStyleBackColor = false;
             this.ArchiveButton.Click += new System.EventHandler(this.ArchiveButton_Click);
             // 
-            // Textbox1
+            // StatusLabel
             // 
-            this.Textbox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.StatusLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.Textbox1.Font = new System.Drawing.Font("Bahnschrift SemiLight SemiConde", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Textbox1.ForeColor = System.Drawing.Color.White;
-            this.Textbox1.Location = new System.Drawing.Point(92, 405);
-            this.Textbox1.Name = "Textbox1";
-            this.Textbox1.Size = new System.Drawing.Size(592, 20);
-            this.Textbox1.TabIndex = 11;
-            this.Textbox1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // Textbox2
-            // 
-            this.Textbox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.Textbox2.Font = new System.Drawing.Font("Bahnschrift SemiLight SemiConde", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Textbox2.ForeColor = System.Drawing.Color.White;
-            this.Textbox2.Location = new System.Drawing.Point(92, 435);
-            this.Textbox2.Name = "Textbox2";
-            this.Textbox2.Size = new System.Drawing.Size(592, 20);
-            this.Textbox2.TabIndex = 12;
-            this.Textbox2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.StatusLabel.Font = new System.Drawing.Font("Bahnschrift SemiLight SemiConde", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.StatusLabel.ForeColor = System.Drawing.Color.White;
+            this.StatusLabel.Location = new System.Drawing.Point(92, 405);
+            this.StatusLabel.Name = "StatusLabel";
+            this.StatusLabel.Size = new System.Drawing.Size(592, 52);
+            this.StatusLabel.TabIndex = 11;
+            this.StatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // TitleBar
             // 
@@ -272,8 +259,7 @@ namespace VRC_Screenshot_Archiver
             this.Controls.Add(this.GithubButton);
             this.Controls.Add(this.TitleLabel);
             this.Controls.Add(this.TitleBar);
-            this.Controls.Add(this.Textbox2);
-            this.Controls.Add(this.Textbox1);
+            this.Controls.Add(this.StatusLabel);
             this.Controls.Add(this.ArchiveButton);
             this.Controls.Add(this.BrowseSource);
             this.Controls.Add(this.BrowseDestination);
@@ -303,8 +289,7 @@ namespace VRC_Screenshot_Archiver
         private System.Windows.Forms.Label DestinationLabel;
         private System.Windows.Forms.Button BrowseSource;
         private System.Windows.Forms.Button ArchiveButton;
-        private System.Windows.Forms.Label Textbox1;
-        private System.Windows.Forms.Label Textbox2;
+        private System.Windows.Forms.Label StatusLabel;
         private System.Windows.Forms.Panel TitleBar;
         private System.Windows.Forms.Label TitleLabel;
         private FontAwesome.Sharp.IconButton CloseButton;

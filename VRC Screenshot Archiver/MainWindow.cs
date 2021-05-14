@@ -8,20 +8,6 @@ namespace VRC_Screenshot_Archiver
     public partial class MainWindow : Form
     {
         /// <summary>
-        /// Default constructor
-        /// </summary>
-        public MainWindow()
-        {
-            InitializeComponent();
-
-            // Set the source and destination folder textbox values
-            SetDirectories();
-
-            // Get the grouping settings
-            _groupSettings = (Grouping)Properties.Settings.Default.GroupSettings;
-        }
-
-        /// <summary>
         /// The screenshot grouping settings
         /// </summary>
         private Grouping _groupSettings;
@@ -38,6 +24,20 @@ namespace VRC_Screenshot_Archiver
         private bool _mouseDown = false;
 
         #endregion
+
+        /// <summary>
+        /// Default constructor
+        /// </summary>
+        public MainWindow()
+        {
+            InitializeComponent();
+
+            // Set the source and destination folder textbox values
+            SetDirectories();
+
+            // Get the grouping settings
+            _groupSettings = (Grouping)Properties.Settings.Default.GroupSettings;
+        }
 
         /// <summary>
         /// Retrieves directories from user settings and inserts them into source and destination folder textboxes
@@ -61,28 +61,45 @@ namespace VRC_Screenshot_Archiver
         }
 
         /// <summary>
-        /// Sets the text in Textbox1
+        /// Sets the text in the status label
         /// </summary>
         /// <param name="value">The value to insert</param>
-        public void SetTextbox1(string value)
+        public void UpdateStatus(string[] value)
         {
-            this.Invoke((MethodInvoker)delegate
+            BeginInvoke((MethodInvoker)delegate
             {
-                Textbox1.Text = value;
+                StatusLabel.Text = value[0] + '\n' + value[1];
             });
         }
 
-        /// <summary>
-        /// Sets the text in Textbox2
-        /// </summary>
-        /// <param name="value">The value to insert</param>
-        public void SetTextbox2(string value)
+        private async void ArchiveButton_Click(object sender, EventArgs e)
         {
-            this.Invoke((MethodInvoker)delegate
-            {
-                Textbox2.Text = value;
-            });
+            ArchiveButton.Enabled = SettingsButton.Enabled = false;
+            await Task.Run(() => Archiver.Archive(SourcePath.Text, DestinationPath.Text, _groupSettings, this));
+            ArchiveButton.Enabled = SettingsButton.Enabled = true;
         }
+
+        #region GitHub and settings menu methods
+
+        private void SettingsButton_Click(object sender, EventArgs e)
+        {
+            // Open the settings window
+            SettingsMenu sm = new SettingsMenu(_groupSettings);
+            if (sm.ShowDialog() == DialogResult.OK)
+            {
+                _groupSettings = sm.GroupSettings;
+            }
+        }
+
+        private void GithubButton_Click(object sender, EventArgs e)
+        {
+            // Open the GitHub repository of this application in a browser
+            System.Diagnostics.Process.Start("https://github.com/Ekas-118/VRChat-Screenshot-Archiver");
+        }
+
+        #endregion
+
+        #region Browse button methods
 
         private void BrowseDestination_Click(object sender, EventArgs e)
         {
@@ -100,26 +117,7 @@ namespace VRC_Screenshot_Archiver
             }
         }
 
-        private async void ArchiveButton_Click(object sender, EventArgs e)
-        {
-            ArchiveButton.Enabled = SettingsButton.Enabled = false;
-            await Task.Run(() => Archiver.Archive(SourcePath.Text, DestinationPath.Text, _groupSettings, this));
-            ArchiveButton.Enabled = SettingsButton.Enabled = true;
-        }
-
-        private void SettingsButton_Click(object sender, EventArgs e)
-        {
-            SettingsMenu sm = new SettingsMenu(_groupSettings);
-            if(sm.ShowDialog() == DialogResult.OK)
-            {
-                _groupSettings = sm.GroupSettings;
-            }
-        }
-
-        private void GithubButton_Click(object sender, EventArgs e)
-        {
-            System.Diagnostics.Process.Start("https://github.com/Ekas-118/VRChat-Screenshot-Archiver");
-        }
+        #endregion
 
         #region Control button methods
 

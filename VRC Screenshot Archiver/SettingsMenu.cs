@@ -10,6 +10,19 @@ namespace VRC_Screenshot_Archiver
         /// </summary>
         public Grouping GroupSettings { get; private set; }
 
+        #region Window drag variables
+
+        /// <summary>
+        /// Mouse location variables for moving the window
+        /// </summary>
+        private int _mouseinX, _mouseinY, _mouseX, _mouseY;
+        /// <summary>
+        /// True while the left mouse button is clicked down
+        /// </summary>
+        private bool _mouseDown = false;
+
+        #endregion
+
         /// <summary>
         /// Default constructor
         /// </summary>
@@ -24,19 +37,6 @@ namespace VRC_Screenshot_Archiver
             DayCheckBox.Checked = settings.HasFlag(Grouping.ByDay);
             GroupSettings = settings;
         }
-
-        #region Window drag variables
-
-        /// <summary>
-        /// Mouse location variables for moving the window
-        /// </summary>
-        private int _mouseinX, _mouseinY, _mouseX, _mouseY;
-        /// <summary>
-        /// True while the left mouse button is clicked down
-        /// </summary>
-        private bool _mouseDown = false;
-
-        #endregion
 
         private void CloseButton_Click(object sender, EventArgs e)
         {
