@@ -50,7 +50,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Resources\vrtalk_logo.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\VRC Screenshot Archiver Logo5.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>FC95F3EEF2FAC166EF5D4D76F92F91CD94075B39</ManifestCertificateThumbprint>
@@ -130,7 +130,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\vrtalk_logo.ico" />
+    <Content Include="Resources\VRC Screenshot Archiver Logo5.ico" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
