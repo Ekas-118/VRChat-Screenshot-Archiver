@@ -87,11 +87,13 @@ namespace VRC_Screenshot_Archiver
 
         private void SettingsButton_Click(object sender, EventArgs e)
         {
-            // Open the settings window
-            SettingsMenu sm = new SettingsMenu(_groupSettings);
-            if (sm.ShowDialog() == DialogResult.OK)
+            using(SettingsMenu sm = new SettingsMenu(_groupSettings))
             {
-                _groupSettings = sm.GroupSettings;
+                // Open the settings window
+                if (sm.ShowDialog() == DialogResult.OK)
+                {
+                    _groupSettings = sm.GroupSettings;
+                }
             }
         }
 
