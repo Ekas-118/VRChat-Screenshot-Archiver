@@ -6,12 +6,12 @@ namespace VRC_Screenshot_Archiver
     /// <summary>
     /// Class for archiving VRChat screenshots
     /// </summary>
-    public static class Archiver
+    public class Archiver
     {
         /// <summary>
         /// Regex for filtering VRChat screenshot files
         /// </summary>
-        private static readonly Regex _regex = new Regex("^VRChat_[0-9]{3,4}x[0-9]{3,4}_[0-9]{4}-[0-9]{2}-[0-9]{2}_[0-9]{2}-[0-9]{2}-[0-9]{2}.[0-9]{3}.png$");
+        private readonly Regex _regex = new Regex("^VRChat_[0-9]{3,4}x[0-9]{3,4}_[0-9]{4}-[0-9]{2}-[0-9]{2}_[0-9]{2}-[0-9]{2}-[0-9]{2}.[0-9]{3}.png$");
 
         /// <summary>
         /// Archives VRChat screenshots by moving them to another destination and grouping them into folders by date (if specified by grouping settings)
@@ -20,10 +20,10 @@ namespace VRC_Screenshot_Archiver
         /// <param name="destination">Destination folder path</param>
         /// <param name="settings">Grouping settings</param>
         /// <param name="form">The main window</param>
-        public static void Archive(string source, string destination, Grouping settings, MainWindow form)
+        public void Archive(string source, string destination, Grouping settings, MainWindow form)
         {
             // The status of the process
-            string[] status = new string[2];
+            var status = new string[2];
 
             // If entered directories are valid...
             if (Directory.Exists(source) && Directory.Exists(destination))

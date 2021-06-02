@@ -8,9 +8,11 @@ namespace VRC_Screenshot_Archiver
         [STAThread]
         static void Main()
         {
+            var archiver = new Archiver();
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainWindow());
+            Application.Run(new MainWindow(archiver));
         }
     }
 }

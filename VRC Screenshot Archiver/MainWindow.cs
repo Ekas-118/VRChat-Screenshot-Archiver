@@ -12,6 +12,8 @@ namespace VRC_Screenshot_Archiver
         /// </summary>
         private Grouping _groupSettings;
 
+        private Archiver _archiver;
+
         #region Window drag variables
 
         /// <summary>
@@ -28,7 +30,7 @@ namespace VRC_Screenshot_Archiver
         /// <summary>
         /// Default constructor
         /// </summary>
-        public MainWindow()
+        public MainWindow(Archiver archiver)
         {
             InitializeComponent();
 
@@ -37,6 +39,8 @@ namespace VRC_Screenshot_Archiver
 
             // Get the grouping settings
             _groupSettings = (Grouping)Properties.Settings.Default.GroupSettings;
+
+            _archiver = archiver;
         }
 
         /// <summary>
@@ -75,7 +79,7 @@ namespace VRC_Screenshot_Archiver
         private async void ArchiveButton_Click(object sender, EventArgs e)
         {
             ArchiveButton.Enabled = SettingsButton.Enabled = false;
-            await Task.Run(() => Archiver.Archive(SourcePath.Text, DestinationPath.Text, _groupSettings, this));
+            await Task.Run(() => _archiver.Archive(SourcePath.Text, DestinationPath.Text, _groupSettings, this));
             ArchiveButton.Enabled = SettingsButton.Enabled = true;
         }
 
