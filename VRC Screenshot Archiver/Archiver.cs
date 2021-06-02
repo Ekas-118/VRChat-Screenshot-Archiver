@@ -11,7 +11,7 @@ namespace VRC_Screenshot_Archiver
         /// <summary>
         /// Regex for filtering VRChat screenshot files
         /// </summary>
-        private readonly Regex _regex = new Regex("^VRChat_[0-9]{3,4}x[0-9]{3,4}_[0-9]{4}-[0-9]{2}-[0-9]{2}_[0-9]{2}-[0-9]{2}-[0-9]{2}.[0-9]{3}.png$");
+        private readonly Regex _regex = new Regex("^VRChat_[0-9]{3,4}x[0-9]{3,4}_([0-9]{4})-([0-9]{2})-([0-9]{2})_[0-9]{2}-[0-9]{2}-[0-9]{2}.[0-9]{3}.png$");
 
         /// <summary>
         /// Archives VRChat screenshots by moving them to another destination and grouping them into folders by date (if specified by grouping settings)
@@ -68,17 +68,19 @@ namespace VRC_Screenshot_Archiver
                         // If the file is a VRChat screenshot...
                         if (_regex.IsMatch(filename))
                         {
-                            // Extract date from filename
-                            string date = filename.Remove(0, 17).Remove(10);
+                            var match = _regex.Match(filename);
+
+                            // Get the date from the file name
+                            string year = match.Groups[1].Value, month = match.Groups[2].Value, day = match.Groups[3].Value;
 
                             // Prepare the directories for grouping
                             string dateFolders = string.Empty;
                             if (settings.HasFlag(Grouping.ByYear))
-                                dateFolders = Path.Combine(dateFolders, $"{date.Remove(4)}");
+                                dateFolders = Path.Combine(dateFolders, $"{year}");
                             if (settings.HasFlag(Grouping.ByMonth))
-                                dateFolders = Path.Combine(dateFolders, $"{date.Remove(7)}");
+                                dateFolders = Path.Combine(dateFolders, $"{year}-{month}");
                             if (settings.HasFlag(Grouping.ByDay))
-                                dateFolders = Path.Combine(dateFolders, $"{date}");
+                                dateFolders = Path.Combine(dateFolders, $"{year}-{month}-{day}");
 
                             // Create a new directory for the current screenshot (if it does not exist already)
                             string destPath = Path.Combine(destination, dateFolders, filename);
