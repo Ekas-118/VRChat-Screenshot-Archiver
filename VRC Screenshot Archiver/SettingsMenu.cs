@@ -38,12 +38,6 @@ namespace VRC_Screenshot_Archiver
             GroupSettings = settings;
         }
 
-        private void CloseButton_Click(object sender, EventArgs e)
-        {
-            // Close dialog window
-            DialogResult = DialogResult.Cancel;
-        }
-
         private void OKButton_Click(object sender, EventArgs e)
         {
             // Save grouping settings

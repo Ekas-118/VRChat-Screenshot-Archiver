@@ -56,6 +56,7 @@ namespace VRC_Screenshot_Archiver
             // 
             // CloseButton
             // 
+            this.CloseButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.CloseButton.Dock = System.Windows.Forms.DockStyle.Right;
             this.CloseButton.FlatAppearance.BorderSize = 0;
             this.CloseButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
@@ -71,7 +72,6 @@ namespace VRC_Screenshot_Archiver
             this.CloseButton.TabIndex = 0;
             this.CloseButton.TabStop = false;
             this.CloseButton.UseVisualStyleBackColor = true;
-            this.CloseButton.Click += new System.EventHandler(this.CloseButton_Click);
             // 
             // YearCheckBox
             // 
