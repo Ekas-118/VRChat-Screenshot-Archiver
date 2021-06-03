@@ -48,7 +48,10 @@ namespace VRC_Screenshot_Archiver
             this.TitleLabel = new System.Windows.Forms.Label();
             this.GithubButton = new FontAwesome.Sharp.IconButton();
             this.SettingsButton = new FontAwesome.Sharp.IconButton();
+            this.titleIcon = new System.Windows.Forms.PictureBox();
+            this.versionLabel = new System.Windows.Forms.Label();
             this.TitleBar.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.titleIcon)).BeginInit();
             this.SuspendLayout();
             // 
             // BrowseDestination
@@ -161,6 +164,8 @@ namespace VRC_Screenshot_Archiver
             // TitleBar
             // 
             this.TitleBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(209)))), ((int)(((byte)(237)))));
+            this.TitleBar.Controls.Add(this.versionLabel);
+            this.TitleBar.Controls.Add(this.titleIcon);
             this.TitleBar.Controls.Add(this.MinimizeButton);
             this.TitleBar.Controls.Add(this.CloseButton);
             this.TitleBar.Dock = System.Windows.Forms.DockStyle.Top;
@@ -248,6 +253,27 @@ namespace VRC_Screenshot_Archiver
             this.SettingsButton.UseVisualStyleBackColor = false;
             this.SettingsButton.Click += new System.EventHandler(this.SettingsButton_Click);
             // 
+            // titleIcon
+            // 
+            this.titleIcon.Image = ((System.Drawing.Image)(resources.GetObject("titleIcon.Image")));
+            this.titleIcon.Location = new System.Drawing.Point(0, 0);
+            this.titleIcon.Name = "titleIcon";
+            this.titleIcon.Size = new System.Drawing.Size(37, 30);
+            this.titleIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.titleIcon.TabIndex = 3;
+            this.titleIcon.TabStop = false;
+            // 
+            // versionLabel
+            // 
+            this.versionLabel.AutoSize = true;
+            this.versionLabel.Font = new System.Drawing.Font("Bahnschrift", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
+            this.versionLabel.ForeColor = System.Drawing.Color.White;
+            this.versionLabel.Location = new System.Drawing.Point(34, 6);
+            this.versionLabel.Name = "versionLabel";
+            this.versionLabel.Size = new System.Drawing.Size(44, 19);
+            this.versionLabel.TabIndex = 15;
+            this.versionLabel.Text = "v1.1.0";
+            // 
             // MainWindow
             // 
             this.AcceptButton = this.ArchiveButton;
@@ -274,6 +300,8 @@ namespace VRC_Screenshot_Archiver
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "VRC Screenshot Archiver";
             this.TitleBar.ResumeLayout(false);
+            this.TitleBar.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.titleIcon)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -296,6 +324,8 @@ namespace VRC_Screenshot_Archiver
         private FontAwesome.Sharp.IconButton MinimizeButton;
         private FontAwesome.Sharp.IconButton GithubButton;
         private FontAwesome.Sharp.IconButton SettingsButton;
+        private System.Windows.Forms.PictureBox titleIcon;
+        private System.Windows.Forms.Label versionLabel;
     }
 }
 
