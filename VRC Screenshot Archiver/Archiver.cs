@@ -79,11 +79,11 @@ namespace VRC_Screenshot_Archiver
                         // Get the filename with extension
                         string filename = Path.GetFileName(i);
 
-                        // If the file is a VRChat screenshot...
-                        if (_regex.IsMatch(filename))
-                        {
-                            var match = _regex.Match(filename);
+                        var match = _regex.Match(filename);
 
+                        // If the file is a VRChat screenshot...
+                        if (match.Success)
+                        {
                             // Get the date from the file name
                             string year = match.Groups[1].Value, month = match.Groups[2].Value, day = match.Groups[3].Value;
 
