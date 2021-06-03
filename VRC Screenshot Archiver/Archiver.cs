@@ -43,7 +43,7 @@ namespace VRC_Screenshot_Archiver
             if (Directory.Exists(source) && Directory.Exists(destination))
             {
                 // Reset status
-                //form.UpdateStatus(status);
+                OnStatusUpdated(status);
 
                 // Save entered directories to user settings
                 Properties.Settings.Default.SourceDirectory = source;
