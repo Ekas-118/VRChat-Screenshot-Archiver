@@ -1,7 +1,7 @@
 # VRChat Screenshot Archiver
 VRChat Screenshot Archiver is a Windows desktop application that archives your VRChat screenshots for you!
 
-![Application screenshot](https://user-images.githubusercontent.com/71600683/118194211-afd11d00-b451-11eb-8f56-0b4dc8d3a7b9.png)
+![Application screenshot](https://user-images.githubusercontent.com/71600683/120572725-21830200-c425-11eb-91f2-5b70e4799e0c.png)
 
 # Download and setup
 
@@ -31,6 +31,10 @@ Example result with all grouping settings enabled:
 ## Feedback
 
 Feel free to report bugs or request features by [submitting an issue](https://github.com/Ekas-118/VRChat-Screenshot-Archiver/issues).
+
+## Thank You 💙
+
+[Pinselohrkater](https://github.com/Pinselohrkater) – my lovely mentor
 
 ## About
 
