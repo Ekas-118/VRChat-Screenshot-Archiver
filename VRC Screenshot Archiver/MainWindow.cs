@@ -41,6 +41,7 @@ namespace VRC_Screenshot_Archiver
             _groupSettings = (Grouping)Properties.Settings.Default.GroupSettings;
 
             _archiver = archiver;
+            _archiver.StatusUpdated += OnStatusUpdated;
         }
 
         /// <summary>
@@ -65,10 +66,20 @@ namespace VRC_Screenshot_Archiver
         }
 
         /// <summary>
+        /// Updates the status label
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnStatusUpdated(object sender, ArchiverEventArgs e)
+        {
+            UpdateStatus(e.Status);
+        }
+
+        /// <summary>
         /// Sets the text in the status label
         /// </summary>
         /// <param name="value">The value to insert</param>
-        public void UpdateStatus(string[] value)
+        private void UpdateStatus(string[] value)
         {
             BeginInvoke((MethodInvoker)delegate
             {
@@ -79,7 +90,7 @@ namespace VRC_Screenshot_Archiver
         private async void ArchiveButton_Click(object sender, EventArgs e)
         {
             ArchiveButton.Enabled = SettingsButton.Enabled = false;
-            await Task.Run(() => _archiver.Archive(SourcePath.Text, DestinationPath.Text, _groupSettings, this));
+            await Task.Run(() => _archiver.Archive(SourcePath.Text, DestinationPath.Text, _groupSettings));
             ArchiveButton.Enabled = SettingsButton.Enabled = true;
         }
 
