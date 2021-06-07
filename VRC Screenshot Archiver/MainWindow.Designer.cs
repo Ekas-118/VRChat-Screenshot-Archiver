@@ -43,13 +43,13 @@ namespace VRC_Screenshot_Archiver
             this.ArchiveButton = new System.Windows.Forms.Button();
             this.StatusLabel = new System.Windows.Forms.Label();
             this.TitleBar = new System.Windows.Forms.Panel();
+            this.versionLabel = new System.Windows.Forms.Label();
+            this.titleIcon = new System.Windows.Forms.PictureBox();
             this.MinimizeButton = new FontAwesome.Sharp.IconButton();
             this.CloseButton = new FontAwesome.Sharp.IconButton();
             this.TitleLabel = new System.Windows.Forms.Label();
             this.GithubButton = new FontAwesome.Sharp.IconButton();
             this.SettingsButton = new FontAwesome.Sharp.IconButton();
-            this.titleIcon = new System.Windows.Forms.PictureBox();
-            this.versionLabel = new System.Windows.Forms.Label();
             this.TitleBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.titleIcon)).BeginInit();
             this.SuspendLayout();
@@ -177,6 +177,27 @@ namespace VRC_Screenshot_Archiver
             this.TitleBar.MouseMove += new System.Windows.Forms.MouseEventHandler(this.TitleBar_MouseMove);
             this.TitleBar.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TitleBar_MouseUp);
             // 
+            // versionLabel
+            // 
+            this.versionLabel.AutoSize = true;
+            this.versionLabel.Font = new System.Drawing.Font("Bahnschrift", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
+            this.versionLabel.ForeColor = System.Drawing.Color.White;
+            this.versionLabel.Location = new System.Drawing.Point(34, 6);
+            this.versionLabel.Name = "versionLabel";
+            this.versionLabel.Size = new System.Drawing.Size(44, 19);
+            this.versionLabel.TabIndex = 15;
+            this.versionLabel.Text = "v1.1.0";
+            // 
+            // titleIcon
+            // 
+            this.titleIcon.Image = ((System.Drawing.Image)(resources.GetObject("titleIcon.Image")));
+            this.titleIcon.Location = new System.Drawing.Point(0, 0);
+            this.titleIcon.Name = "titleIcon";
+            this.titleIcon.Size = new System.Drawing.Size(37, 30);
+            this.titleIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.titleIcon.TabIndex = 3;
+            this.titleIcon.TabStop = false;
+            // 
             // MinimizeButton
             // 
             this.MinimizeButton.FlatAppearance.BorderSize = 0;
@@ -252,27 +273,6 @@ namespace VRC_Screenshot_Archiver
             this.SettingsButton.TabIndex = 14;
             this.SettingsButton.UseVisualStyleBackColor = false;
             this.SettingsButton.Click += new System.EventHandler(this.SettingsButton_Click);
-            // 
-            // titleIcon
-            // 
-            this.titleIcon.Image = ((System.Drawing.Image)(resources.GetObject("titleIcon.Image")));
-            this.titleIcon.Location = new System.Drawing.Point(0, 0);
-            this.titleIcon.Name = "titleIcon";
-            this.titleIcon.Size = new System.Drawing.Size(37, 30);
-            this.titleIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.titleIcon.TabIndex = 3;
-            this.titleIcon.TabStop = false;
-            // 
-            // versionLabel
-            // 
-            this.versionLabel.AutoSize = true;
-            this.versionLabel.Font = new System.Drawing.Font("Bahnschrift", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
-            this.versionLabel.ForeColor = System.Drawing.Color.White;
-            this.versionLabel.Location = new System.Drawing.Point(34, 6);
-            this.versionLabel.Name = "versionLabel";
-            this.versionLabel.Size = new System.Drawing.Size(44, 19);
-            this.versionLabel.TabIndex = 15;
-            this.versionLabel.Text = "v1.1.0";
             // 
             // MainWindow
             // 

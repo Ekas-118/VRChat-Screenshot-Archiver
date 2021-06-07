@@ -4,14 +4,6 @@ using System.Text.RegularExpressions;
 
 namespace VRC_Screenshot_Archiver
 {
-    public class ArchiverEventArgs : EventArgs
-    {
-        /// <summary>
-        /// The status of the archive process
-        /// </summary>
-        public string[] Status { get; set; }
-    }
-
     /// <summary>
     /// Class for archiving VRChat screenshots
     /// </summary>
@@ -25,7 +17,7 @@ namespace VRC_Screenshot_Archiver
         /// <summary>
         /// Event that gets raised when the archiving status changes
         /// </summary>
-        public event EventHandler<ArchiverEventArgs> StatusUpdated;
+        public event EventHandler<string[]> StatusUpdated;
 
         /// <summary>
         /// Archives VRChat screenshots by moving them to another destination and grouping them into folders by date (if specified by grouping settings)
@@ -134,10 +126,13 @@ namespace VRC_Screenshot_Archiver
             }    
         }
 
+        /// <summary>
+        /// Raises the StatusUpdated event
+        /// </summary>
+        /// <param name="status">The archiving process status</param>
         protected virtual void OnStatusUpdated(string[] status)
         {
-            if (StatusUpdated != null)
-                StatusUpdated(this, new ArchiverEventArgs() { Status = status });
+            StatusUpdated?.Invoke(this, status);
         }
     }
 }

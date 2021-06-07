@@ -70,9 +70,9 @@ namespace VRC_Screenshot_Archiver
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void OnStatusUpdated(object sender, ArchiverEventArgs e)
+        private void OnStatusUpdated(object sender, string[] status)
         {
-            UpdateStatus(e.Status);
+            UpdateStatus(status);
         }
 
         /// <summary>
