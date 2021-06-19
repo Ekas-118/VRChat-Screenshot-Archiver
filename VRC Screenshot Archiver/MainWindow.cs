@@ -34,10 +34,8 @@ namespace VRC_Screenshot_Archiver
         {
             InitializeComponent();
 
-            // Set the source and destination folder textbox values
             SetDirectories();
 
-            // Get the grouping settings
             _groupSettings = (Grouping)Properties.Settings.Default.GroupSettings;
 
             _archiver = archiver;
@@ -52,11 +50,9 @@ namespace VRC_Screenshot_Archiver
             string sourceDirectory = Properties.Settings.Default.SourceDirectory;
             string destinationDirectory = Properties.Settings.Default.DestinationDirectory;
 
-            // If no setting exists...
             if(sourceDirectory == String.Empty)
-                // Set source path to Pictures/VRChat
+                // Set source path to Pictures/VRChat unless specified otherwise in user settings
                 SourcePath.Text = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyPictures), "VRChat");
-            // Otherwise... 
             else
                 // Set source folder to the one specified in user settings
                 SourcePath.Text = sourceDirectory;
@@ -94,13 +90,12 @@ namespace VRC_Screenshot_Archiver
             ArchiveButton.Enabled = SettingsButton.Enabled = true;
         }
 
-        #region GitHub and settings menu methods
+        #region GitHub and settings button methods
 
         private void SettingsButton_Click(object sender, EventArgs e)
         {
             using(SettingsMenu sm = new SettingsMenu(_groupSettings))
             {
-                // Open the settings window
                 if (sm.ShowDialog() == DialogResult.OK)
                 {
                     _groupSettings = sm.GroupSettings;
@@ -110,7 +105,6 @@ namespace VRC_Screenshot_Archiver
 
         private void GithubButton_Click(object sender, EventArgs e)
         {
-            // Open the GitHub repository of this application in a browser
             System.Diagnostics.Process.Start("https://github.com/Ekas-118/VRChat-Screenshot-Archiver");
         }
 

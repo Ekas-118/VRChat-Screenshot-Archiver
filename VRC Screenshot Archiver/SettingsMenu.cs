@@ -31,7 +31,6 @@ namespace VRC_Screenshot_Archiver
         {
             InitializeComponent();
 
-            // Set checkbox values
             YearCheckBox.Checked = settings.HasFlag(Grouping.ByYear);
             MonthCheckBox.Checked = settings.HasFlag(Grouping.ByMonth);
             DayCheckBox.Checked = settings.HasFlag(Grouping.ByDay);
@@ -40,11 +39,9 @@ namespace VRC_Screenshot_Archiver
 
         private void OKButton_Click(object sender, EventArgs e)
         {
-            // Save grouping settings
             Properties.Settings.Default.GroupSettings = (int)GroupSettings;
             Properties.Settings.Default.Save();
 
-            // Close dialog window
             DialogResult = DialogResult.OK;
         }
 
