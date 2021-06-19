@@ -83,7 +83,7 @@ namespace VRC_Screenshot_Archiver
         {
             BeginInvoke((MethodInvoker)delegate
             {
-                StatusLabel.Text = value[0] + '\n' + value[1];
+                StatusLabel.Text = $"{value[0]}\n{value[1]}";
             });
         }
 

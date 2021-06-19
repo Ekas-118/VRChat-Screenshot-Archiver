@@ -59,7 +59,7 @@ namespace VRC_Screenshot_Archiver
                 return;
             }
 
-            status[1] = files.Length + " images found.";
+            status[1] = $"{files.Length} images found.";
             OnStatusUpdated(status);
 
             // Check whether the source directory contains files
@@ -104,7 +104,7 @@ namespace VRC_Screenshot_Archiver
                 catch
                 {
                     failed++;
-                    status[0] = moved + " images moved. " + failed + " failed.";
+                    status[0] = $"{moved} images moved. {failed} failed.";
                     OnStatusUpdated(status);
                     continue;
                 }
@@ -118,9 +118,9 @@ namespace VRC_Screenshot_Archiver
                 catch
                 {
                     failed++;
-                
                 }
-                status[0] = moved + " images moved. " + (failed > 0 ? failed + " failed." : "");
+
+                status[0] = $"{moved} images moved.{(failed > 0 ? $" {failed} failed." : "")}";
                 OnStatusUpdated(status);
             }
 
