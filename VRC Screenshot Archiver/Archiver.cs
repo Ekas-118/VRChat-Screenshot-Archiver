@@ -13,7 +13,7 @@ namespace VRC_Screenshot_Archiver
         /// <summary>
         /// Regex for filtering VRChat screenshot files
         /// </summary>
-        private readonly Regex _regex = new Regex("^VRChat_[0-9]{3,4}x[0-9]{3,4}_((([0-9]{4})-[0-9]{2})-[0-9]{2})_[0-9]{2}-[0-9]{2}-[0-9]{2}.[0-9]{3}.png$");
+        private static readonly Regex _regex = new Regex("^VRChat_[0-9]{3,4}x[0-9]{3,4}_((([0-9]{4})-[0-9]{2})-[0-9]{2})_[0-9]{2}-[0-9]{2}-[0-9]{2}.[0-9]{3}.png$");
 
         /// <summary>
         /// Archives VRChat screenshots by moving them to another destination and grouping them into folders by date (if specified by grouping settings)
@@ -66,10 +66,10 @@ namespace VRC_Screenshot_Archiver
             }
 
             // Loop through each file and move it if it is a VRChat screenshot
-            await Task.Run(() => Parallel.ForEach(files, (i) =>
+            await Task.Run(() => Parallel.ForEach(files, (file) =>
             {
                 // Get the filename with extension
-                string filename = Path.GetFileName(i);
+                string filename = Path.GetFileName(file);
 
                 var match = _regex.Match(filename);
 
@@ -107,7 +107,7 @@ namespace VRC_Screenshot_Archiver
                 // Move screenshot to destination
                 try
                 {
-                    File.Move(i, destPath);
+                    File.Move(file, destPath);
                     lock (report)
                     {
                         report.FilesMoved++;
