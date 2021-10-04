@@ -39,7 +39,6 @@ namespace VRC_Screenshot_Archiver
             _groupSettings = (Grouping)Properties.Settings.Default.GroupSettings;
 
             _archiver = archiver;
-            _archiver.StatusUpdated += OnStatusUpdated;
         }
 
         /// <summary>
@@ -50,7 +49,7 @@ namespace VRC_Screenshot_Archiver
             string sourceDirectory = Properties.Settings.Default.SourceDirectory;
             string destinationDirectory = Properties.Settings.Default.DestinationDirectory;
 
-            if(sourceDirectory == String.Empty)
+            if (sourceDirectory == String.Empty)
                 // Set source path to Pictures/VRChat unless specified otherwise in user settings
                 SourcePath.Text = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyPictures), "VRChat");
             else
@@ -65,28 +64,30 @@ namespace VRC_Screenshot_Archiver
         /// Updates the status label
         /// </summary>
         /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void OnStatusUpdated(object sender, string[] status)
+        /// <param name="status"></param>
+        private void UpdateStatus(object sender, ArchiveProgressModel status)
         {
-            UpdateStatus(status);
-        }
-
-        /// <summary>
-        /// Sets the text in the status label
-        /// </summary>
-        /// <param name="value">The value to insert</param>
-        private void UpdateStatus(string[] value)
-        {
-            BeginInvoke((MethodInvoker)delegate
+            // If there is an error message, display it
+            if (!string.IsNullOrEmpty(status.ErrorMessage))
             {
-                StatusLabel.Text = $"{value[0]}\n{value[1]}";
-            });
+                StatusLabel.Text = status.ErrorMessage;
+            }
+            // otherwise, display the normal info
+            else
+            {
+                StatusLabel.Text = status.Message;
+            }
         }
 
         private async void ArchiveButton_Click(object sender, EventArgs e)
         {
             ArchiveButton.Enabled = SettingsButton.Enabled = false;
-            await Task.Run(() => _archiver.Archive(SourcePath.Text, DestinationPath.Text, _groupSettings));
+
+            Progress<ArchiveProgressModel> progress = new Progress<ArchiveProgressModel>();
+            progress.ProgressChanged += UpdateStatus;
+
+            await _archiver.ArchiveAsync(progress, SourcePath.Text, DestinationPath.Text, _groupSettings);
+
             ArchiveButton.Enabled = SettingsButton.Enabled = true;
         }
 
@@ -94,7 +95,7 @@ namespace VRC_Screenshot_Archiver
 
         private void SettingsButton_Click(object sender, EventArgs e)
         {
-            using(SettingsMenu sm = new SettingsMenu(_groupSettings))
+            using (SettingsMenu sm = new SettingsMenu(_groupSettings))
             {
                 if (sm.ShowDialog() == DialogResult.OK)
                 {

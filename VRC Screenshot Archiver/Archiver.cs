@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace VRC_Screenshot_Archiver
 {
@@ -15,38 +16,34 @@ namespace VRC_Screenshot_Archiver
         private readonly Regex _regex = new Regex("^VRChat_[0-9]{3,4}x[0-9]{3,4}_((([0-9]{4})-[0-9]{2})-[0-9]{2})_[0-9]{2}-[0-9]{2}-[0-9]{2}.[0-9]{3}.png$");
 
         /// <summary>
-        /// Event that gets raised when the archiving status changes
-        /// </summary>
-        public event EventHandler<string[]> StatusUpdated;
-
-        /// <summary>
         /// Archives VRChat screenshots by moving them to another destination and grouping them into folders by date (if specified by grouping settings)
         /// </summary>
+        /// <param name="progress">Status information of the method progress</param>
         /// <param name="source">Screenshot folder path</param>
         /// <param name="destination">Destination folder path</param>
         /// <param name="settings">Grouping settings</param>
-        public void Archive(string source, string destination, Grouping settings)
+        public async Task ArchiveAsync(IProgress<ArchiveProgressModel> progress, string source, string destination, Grouping settings)
         {
-            // The status of the process
-            var status = new string[2];
+            // Progress status to report
+            ArchiveProgressModel report = new ArchiveProgressModel();
+
+            // Reset status
+            progress.Report(report);
 
             // Check whether entered directories exist
             if (!Directory.Exists(source) || !Directory.Exists(destination))
             {
-                status[0] = "Invalid path(s).";
-                OnStatusUpdated(status);
+                report.ErrorMessage = "Invalid path(s).";
+                progress.Report(report);
                 return;
             }
-
-            // Reset status
-            OnStatusUpdated(status);
 
             // Save entered directories to user settings
             Properties.Settings.Default.SourceDirectory = source;
             Properties.Settings.Default.DestinationDirectory = destination;
             Properties.Settings.Default.Save();
 
-            // Try to get the files from the source directory that are likely to be screenshots
+            // Get the files from the source directory that are likely to be screenshots
             string[] files;
             try
             {
@@ -54,13 +51,13 @@ namespace VRC_Screenshot_Archiver
             }
             catch
             {
-                status[0] = "Invalid source path.";
-                OnStatusUpdated(status);
+                report.ErrorMessage = "Invalid source path.";
+                progress.Report(report);
                 return;
             }
 
-            status[1] = $"{files.Length} images found.";
-            OnStatusUpdated(status);
+            report.ImagesFound = files.Length;
+            progress.Report(report);
 
             // Check whether the source directory contains files
             if (files.Length == 0)
@@ -68,12 +65,8 @@ namespace VRC_Screenshot_Archiver
                 return;
             }
 
-            status[0] = "0 images moved.";
-            OnStatusUpdated(status);
-
-            int moved = 0;
-            int failed = 0;
-            foreach (string i in files)
+            // Loop through each file and move it if it is a VRChat screenshot
+            await Task.Run(() => Parallel.ForEach(files, (i) =>
             {
                 // Get the filename with extension
                 string filename = Path.GetFileName(i);
@@ -83,7 +76,7 @@ namespace VRC_Screenshot_Archiver
                 // Check whether the file is a VRChat screenshot
                 if (!match.Success)
                 {
-                    continue;
+                    return;
                 }
 
                 // Prepare the directories for grouping
@@ -95,7 +88,7 @@ namespace VRC_Screenshot_Archiver
                 if (settings.HasFlag(Grouping.ByDay))
                     dateFolders = Path.Combine(dateFolders, $"{match.Groups[1].Value}"); // yyyy-mm-dd
 
-                // Try to create a new directory for the current screenshot (if it does not exist already)
+                // Create a new directory for the current screenshot (if it does not exist already)
                 string destPath = Path.Combine(destination, dateFolders, filename);
                 try
                 {
@@ -103,38 +96,36 @@ namespace VRC_Screenshot_Archiver
                 }
                 catch
                 {
-                    failed++;
-                    status[0] = $"{moved} images moved. {failed} failed.";
-                    OnStatusUpdated(status);
-                    continue;
+                    lock (report)
+                    {
+                        report.FilesFailed++;
+                    }
+                    progress.Report(report);
+                    return;
                 }
 
-                // Try to move screenshot to destination
+                // Move screenshot to destination
                 try
                 {
                     File.Move(i, destPath);
-                    moved++;
+                    lock (report)
+                    {
+                        report.FilesMoved++;
+                    }
                 }
                 catch
                 {
-                    failed++;
+                    lock (report)
+                    {
+                        report.FilesFailed++;
+                    }
                 }
 
-                status[0] = $"{moved} images moved.{(failed > 0 ? $" {failed} failed." : "")}";
-                OnStatusUpdated(status);
-            }
+                progress.Report(report);
+            }));
 
             // Open the destination folder
             System.Diagnostics.Process.Start(destination);
-        }
-
-        /// <summary>
-        /// Raises the StatusUpdated event
-        /// </summary>
-        /// <param name="status">The archiving process status</param>
-        protected virtual void OnStatusUpdated(string[] status)
-        {
-            StatusUpdated?.Invoke(this, status);
         }
     }
 }

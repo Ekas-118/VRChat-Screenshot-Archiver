@@ -81,6 +81,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArchiveProgressModel.cs" />
     <Compile Include="Archiver.cs" />
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
