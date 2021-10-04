@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace VRC_Screenshot_Archiver
 {
@@ -115,17 +115,29 @@ namespace VRC_Screenshot_Archiver
 
         private void BrowseDestination_Click(object sender, EventArgs e)
         {
-            if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
+            CommonOpenFileDialog dialog = new CommonOpenFileDialog
             {
-                DestinationPath.Text = folderBrowserDialog1.SelectedPath;
+                IsFolderPicker = true,
+                InitialDirectory = DestinationPath.Text
+            };
+
+            if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
+            {
+                DestinationPath.Text = dialog.FileName;
             }
         }
 
         private void BrowseSource_Click(object sender, EventArgs e)
         {
-            if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
+            CommonOpenFileDialog dialog = new CommonOpenFileDialog
             {
-                SourcePath.Text = folderBrowserDialog1.SelectedPath;
+                IsFolderPicker = true,
+                InitialDirectory = SourcePath.Text
+            };
+
+            if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
+            {
+                SourcePath.Text = dialog.FileName;
             }
         }
 

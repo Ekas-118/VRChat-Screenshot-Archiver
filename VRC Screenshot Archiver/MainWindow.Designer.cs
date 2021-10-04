@@ -33,7 +33,6 @@ namespace VRC_Screenshot_Archiver
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
-            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.BrowseDestination = new System.Windows.Forms.Button();
             this.SourcePath = new System.Windows.Forms.TextBox();
             this.DestinationPath = new System.Windows.Forms.TextBox();
@@ -308,8 +307,6 @@ namespace VRC_Screenshot_Archiver
         }
 
         #endregion
-
-        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.Button BrowseDestination;
         private System.Windows.Forms.TextBox SourcePath;
         private System.Windows.Forms.TextBox DestinationPath;
