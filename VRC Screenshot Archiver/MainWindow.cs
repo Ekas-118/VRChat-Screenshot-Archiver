@@ -65,7 +65,7 @@ namespace VRC_Screenshot_Archiver
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="status"></param>
-        private void UpdateStatus(object sender, ArchiveProgressModel status)
+        private void UpdateStatus(object sender, ArchiveProgress status)
         {
             // If there is an error message, display it
             if (!string.IsNullOrEmpty(status.ErrorMessage))
@@ -83,7 +83,7 @@ namespace VRC_Screenshot_Archiver
         {
             ArchiveButton.Enabled = SettingsButton.Enabled = false;
 
-            Progress<ArchiveProgressModel> progress = new Progress<ArchiveProgressModel>();
+            Progress<ArchiveProgress> progress = new Progress<ArchiveProgress>();
             progress.ProgressChanged += UpdateStatus;
 
             await _archiver.ArchiveAsync(progress, SourcePath.Text, DestinationPath.Text, _groupSettings);

@@ -22,10 +22,10 @@ namespace VRC_Screenshot_Archiver
         /// <param name="source">Screenshot folder path</param>
         /// <param name="destination">Destination folder path</param>
         /// <param name="settings">Grouping settings</param>
-        public async Task ArchiveAsync(IProgress<ArchiveProgressModel> progress, string source, string destination, Grouping settings)
+        public async Task ArchiveAsync(IProgress<ArchiveProgress> progress, string source, string destination, Grouping settings)
         {
             // Progress status to report
-            ArchiveProgressModel report = new ArchiveProgressModel();
+            ArchiveProgress report = new ArchiveProgress();
 
             // Reset status
             progress.Report(report);

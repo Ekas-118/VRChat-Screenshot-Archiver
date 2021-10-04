@@ -5,7 +5,7 @@ namespace VRC_Screenshot_Archiver
     /// <summary>
     /// Model for storing archiving progress information
     /// </summary>
-    public class ArchiveProgressModel
+    public class ArchiveProgress
     {
         /// <summary>
         /// Count of files successfully moved
