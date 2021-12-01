@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -44,10 +46,10 @@ namespace VRC_Screenshot_Archiver
             Properties.Settings.Default.Save();
 
             // Get the files from the source directory that are likely to be screenshots
-            string[] files;
+            List<string> files;
             try
             {
-                files = Directory.GetFiles(source, "*VRChat_*.png");
+                files = Directory.GetFiles(source, "*VRChat_*.png").ToList();
             }
             catch
             {
@@ -56,11 +58,11 @@ namespace VRC_Screenshot_Archiver
                 return;
             }
 
-            report.ImagesFound = files.Length;
+            report.ImagesFound = files.Count;
             progress.Report(report);
 
             // Check whether the source directory contains files
-            if (files.Length == 0)
+            if (files.Count == 0)
             {
                 return;
             }
