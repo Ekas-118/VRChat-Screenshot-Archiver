@@ -1,7 +1,7 @@
-﻿using System;
-using System.Windows.Forms;
+﻿using Microsoft.WindowsAPICodePack.Dialogs;
+using System;
 using System.IO;
-using Microsoft.WindowsAPICodePack.Dialogs;
+using System.Windows.Forms;
 
 namespace VRC_Screenshot_Archiver
 {
@@ -11,8 +11,6 @@ namespace VRC_Screenshot_Archiver
         /// The screenshot grouping settings
         /// </summary>
         private Grouping _groupSettings;
-
-        private Archiver _archiver;
 
         #region Window drag variables
 
@@ -30,15 +28,13 @@ namespace VRC_Screenshot_Archiver
         /// <summary>
         /// Default constructor
         /// </summary>
-        public MainWindow(Archiver archiver)
+        public MainWindow()
         {
             InitializeComponent();
 
             SetDirectories();
 
             _groupSettings = (Grouping)Properties.Settings.Default.GroupSettings;
-
-            _archiver = archiver;
         }
 
         /// <summary>
@@ -86,7 +82,9 @@ namespace VRC_Screenshot_Archiver
             Progress<ArchiveProgress> progress = new Progress<ArchiveProgress>();
             progress.ProgressChanged += UpdateStatus;
 
-            await _archiver.ArchiveAsync(progress, SourcePath.Text, DestinationPath.Text, _groupSettings);
+            var archiver = new Archiver(progress, SourcePath.Text, DestinationPath.Text, _groupSettings);
+
+            await archiver.ArchiveAsync();
 
             ArchiveButton.Enabled = SettingsButton.Enabled = true;
         }

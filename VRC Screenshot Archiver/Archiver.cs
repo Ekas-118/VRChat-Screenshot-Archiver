@@ -14,8 +14,23 @@ namespace VRC_Screenshot_Archiver
     {
         /// <summary>
         /// Regex for filtering VRChat screenshot files
+        /// VRChat_RESXxRESY_YYYY-MM-DD_hh-mm-ss.###.png
         /// </summary>
-        private static readonly Regex _regex = new Regex("^VRChat_[0-9]{3,4}x[0-9]{3,4}_((([0-9]{4})-[0-9]{2})-[0-9]{2})_[0-9]{2}-[0-9]{2}-[0-9]{2}.[0-9]{3}.png$");
+        private readonly Regex _regex = new Regex("^VRChat_[0-9]{3,4}x[0-9]{3,4}_((([0-9]{4})-[0-9]{2})-[0-9]{2})_[0-9]{2}-[0-9]{2}-[0-9]{2}.[0-9]{3}.png$");
+        ArchiveProgress _report = new ArchiveProgress();
+
+        private readonly IProgress<ArchiveProgress> _progress;
+        private readonly string _source;
+        private readonly string _destination;
+        private readonly Grouping _settings;
+
+        public Archiver(IProgress<ArchiveProgress> progress, string source, string destination, Grouping settings)
+        {
+            _progress = progress;
+            _source = source;
+            _destination = destination;
+            _settings = settings;
+        }
 
         /// <summary>
         /// Archives VRChat screenshots by moving them to another destination and grouping them into folders by date (if specified by grouping settings)
@@ -24,118 +39,130 @@ namespace VRC_Screenshot_Archiver
         /// <param name="source">Screenshot folder path</param>
         /// <param name="destination">Destination folder path</param>
         /// <param name="settings">Grouping settings</param>
-        public async Task ArchiveAsync(IProgress<ArchiveProgress> progress, string source, string destination, Grouping settings)
+        public async Task ArchiveAsync()
         {
-            // Progress status to report
-            ArchiveProgress report = new ArchiveProgress();
-            List<string> subFolders = new List<string>();
-
             // Reset status
-            progress.Report(report);
+            _progress.Report(_report);
 
-            // Check whether entered directories exist
-            if (!Directory.Exists(source) || !Directory.Exists(destination))
+            if (!Directory.Exists(_source) || !Directory.Exists(_destination))
             {
-                report.ErrorMessage = "Invalid path(s).";
-                progress.Report(report);
+                _report.ErrorMessage = "Invalid path(s).";
+                _progress.Report(_report);
                 return;
             }
 
-            // Save entered directories to user settings
-            Properties.Settings.Default.SourceDirectory = source;
-            Properties.Settings.Default.DestinationDirectory = destination;
-            Properties.Settings.Default.Save();
+            SaveUserSettings();
 
-            // Add subdirectories of source folder
-            subFolders.AddRange(Directory.GetDirectories(source));
+            List<string> subFolders = new List<string>(Directory.GetDirectories(_source));
 
-            // Get the files from the source directory that are likely to be screenshots
             List<string> files;
             try
             {
-                files = Directory.GetFiles(source, "*VRChat_*.png").ToList();
-
-                foreach (string src in subFolders)
-                {
-                    files.AddRange(Directory.GetFiles(src, "*VRChat_*.png"));
-                }
+                files = GetAllFiles(subFolders);
             }
             catch
             {
-                report.ErrorMessage = "Invalid source path.";
-                progress.Report(report);
+                _report.ErrorMessage = "Invalid source path.";
                 return;
             }
+            finally
+            {
+                _progress.Report(_report);
+            }
 
-            report.ImagesFound = files.Count;
-            progress.Report(report);
-
-            // Check whether the source directory contains files
             if (files.Count == 0)
             {
                 return;
             }
 
-            // Loop through each file and move it if it is a VRChat screenshot
+            await MoveScreenshots(files);
+
+            RemoveEmptySubfolders(subFolders);
+
+            // Open the destination folder
+            System.Diagnostics.Process.Start(_destination);
+        }
+
+        private async Task MoveScreenshots(List<string> files)
+        {
             await Task.Run(() => Parallel.ForEach(files, (file) =>
             {
-                // Get the filename with extension
                 string filename = Path.GetFileName(file);
 
                 var match = _regex.Match(filename);
 
-                // Check whether the file is a VRChat screenshot
                 if (!match.Success)
                 {
                     return;
                 }
 
-                // Prepare the directories for grouping
-                string dateFolders = string.Empty;
-                if (settings.HasFlag(Grouping.ByYear))
-                    dateFolders = Path.Combine(dateFolders, $"{match.Groups[3].Value}"); // yyyy
-                if (settings.HasFlag(Grouping.ByMonth))
-                    dateFolders = Path.Combine(dateFolders, $"{match.Groups[2].Value}"); // yyyy-mm
-                if (settings.HasFlag(Grouping.ByDay))
-                    dateFolders = Path.Combine(dateFolders, $"{match.Groups[1].Value}"); // yyyy-mm-dd
+                string dateFolders = GetDateFolders(match);
 
-                // Create a new directory for the current screenshot (if it does not exist already)
-                string destPath = Path.Combine(destination, dateFolders, filename);
+                string destPath = Path.Combine(_destination, dateFolders, filename);
                 try
                 {
-                    Directory.CreateDirectory(Path.Combine(destination, dateFolders));
+                    Directory.CreateDirectory(Path.Combine(_destination, dateFolders));
                 }
                 catch
                 {
-                    lock (report)
+                    lock (_report)
                     {
-                        report.FilesFailed++;
+                        _report.FilesFailed++;
                     }
-                    progress.Report(report);
+                    _progress.Report(_report);
                     return;
                 }
 
-                // Move screenshot to destination
-                try
-                {
-                    File.Move(file, destPath);
-                    lock (report)
-                    {
-                        report.FilesMoved++;
-                    }
-                }
-                catch
-                {
-                    lock (report)
-                    {
-                        report.FilesFailed++;
-                    }
-                }
+                MoveFile(file, destPath);
 
-                progress.Report(report);
+                _progress.Report(_report);
             }));
+        }
 
-            // Remove empty subfolders from source
+        private List<string> GetAllFiles(List<string> subFolders)
+        {
+            List<string> files = Directory.GetFiles(_source, "*VRChat_*.png").ToList();
+            foreach (string src in subFolders)
+            {
+                files.AddRange(Directory.GetFiles(src, "*VRChat_*.png"));
+            }
+            _report.ImagesFound = files.Count;
+            return files;
+        }
+
+        private void MoveFile(string file, string destPath)
+        {
+            try
+            {
+                File.Move(file, destPath);
+                lock (_report)
+                {
+                    _report.FilesMoved++;
+                }
+            }
+            catch
+            {
+                lock (_report)
+                {
+                    _report.FilesFailed++;
+                }
+            }
+        }
+
+        private string GetDateFolders(Match match)
+        {
+            string dateFolders = string.Empty;
+            if (_settings.HasFlag(Grouping.ByYear))
+                dateFolders = Path.Combine(dateFolders, $"{match.Groups[3].Value}"); // yyyy
+            if (_settings.HasFlag(Grouping.ByMonth))
+                dateFolders = Path.Combine(dateFolders, $"{match.Groups[2].Value}"); // yyyy-mm
+            if (_settings.HasFlag(Grouping.ByDay))
+                dateFolders = Path.Combine(dateFolders, $"{match.Groups[1].Value}"); // yyyy-mm-dd
+            return dateFolders;
+        }
+
+        private void RemoveEmptySubfolders(List<string> subFolders)
+        {
             foreach (string subFolder in subFolders)
             {
                 if (Directory.GetFileSystemEntries(subFolder).Length == 0)
@@ -143,9 +170,13 @@ namespace VRC_Screenshot_Archiver
                     Directory.Delete(subFolder);
                 }
             }
+        }
 
-            // Open the destination folder
-            System.Diagnostics.Process.Start(destination);
+        private void SaveUserSettings()
+        {
+            Properties.Settings.Default.SourceDirectory = _source;
+            Properties.Settings.Default.DestinationDirectory = _destination;
+            Properties.Settings.Default.Save();
         }
     }
 }
