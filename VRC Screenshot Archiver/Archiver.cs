@@ -28,6 +28,7 @@ namespace VRC_Screenshot_Archiver
         {
             // Progress status to report
             ArchiveProgress report = new ArchiveProgress();
+            List<string> subFolders = new List<string>();
 
             // Reset status
             progress.Report(report);
@@ -45,11 +46,19 @@ namespace VRC_Screenshot_Archiver
             Properties.Settings.Default.DestinationDirectory = destination;
             Properties.Settings.Default.Save();
 
+            // Add subdirectories of source folder
+            subFolders.AddRange(Directory.GetDirectories(source));
+
             // Get the files from the source directory that are likely to be screenshots
             List<string> files;
             try
             {
                 files = Directory.GetFiles(source, "*VRChat_*.png").ToList();
+
+                foreach (string src in subFolders)
+                {
+                    files.AddRange(Directory.GetFiles(src, "*VRChat_*.png"));
+                }
             }
             catch
             {
@@ -125,6 +134,15 @@ namespace VRC_Screenshot_Archiver
 
                 progress.Report(report);
             }));
+
+            // Remove empty subfolders from source
+            foreach (string subFolder in subFolders)
+            {
+                if (Directory.GetFileSystemEntries(subFolder).Length == 0)
+                {
+                    Directory.Delete(subFolder);
+                }
+            }
 
             // Open the destination folder
             System.Diagnostics.Process.Start(destination);
