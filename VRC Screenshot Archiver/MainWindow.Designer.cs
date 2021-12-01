@@ -183,9 +183,9 @@ namespace VRC_Screenshot_Archiver
             this.versionLabel.ForeColor = System.Drawing.Color.White;
             this.versionLabel.Location = new System.Drawing.Point(34, 6);
             this.versionLabel.Name = "versionLabel";
-            this.versionLabel.Size = new System.Drawing.Size(44, 19);
+            this.versionLabel.Size = new System.Drawing.Size(47, 19);
             this.versionLabel.TabIndex = 15;
-            this.versionLabel.Text = "v1.1.0";
+            this.versionLabel.Text = "v1.2.0";
             // 
             // titleIcon
             // 
