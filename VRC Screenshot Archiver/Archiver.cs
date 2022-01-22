@@ -17,18 +17,16 @@ namespace VRC_Screenshot_Archiver
         /// VRChat_RESXxRESY_YYYY-MM-DD_hh-mm-ss.###.png
         /// </summary>
         private readonly Regex _regex = new Regex("^VRChat_[0-9]{3,4}x[0-9]{3,4}_((([0-9]{4})-[0-9]{2})-[0-9]{2})_[0-9]{2}-[0-9]{2}-[0-9]{2}.[0-9]{3}.png$");
-        ArchiveProgress _report = new ArchiveProgress();
+        private readonly ArchiveProgress _report = new ArchiveProgress();
 
         private readonly IProgress<ArchiveProgress> _progress;
-        private readonly string _source;
-        private readonly string _destination;
-        private readonly Grouping _settings;
+        private readonly ArchiveSettings _settings;
 
-        public Archiver(IProgress<ArchiveProgress> progress, string source, string destination, Grouping settings)
+        public event EventHandler<ArchiveSettings> DirectoriesValidated;
+
+        public Archiver(IProgress<ArchiveProgress> progress, ArchiveSettings settings)
         {
             _progress = progress;
-            _source = source;
-            _destination = destination;
             _settings = settings;
         }
 
@@ -44,16 +42,16 @@ namespace VRC_Screenshot_Archiver
             // Reset status
             _progress.Report(_report);
 
-            if (!Directory.Exists(_source) || !Directory.Exists(_destination))
+            if (!Directory.Exists(_settings.SourceDirectory) || !Directory.Exists(_settings.DestinationDirectory))
             {
                 _report.ErrorMessage = "Invalid path(s).";
                 _progress.Report(_report);
                 return;
             }
 
-            SaveUserSettings();
+            OnDirectoriesValidated();
 
-            List<string> subFolders = new List<string>(Directory.GetDirectories(_source));
+            List<string> subFolders = new List<string>(Directory.GetDirectories(_settings.SourceDirectory));
 
             List<string> files;
             try
@@ -80,7 +78,7 @@ namespace VRC_Screenshot_Archiver
             RemoveEmptySubfolders(subFolders);
 
             // Open the destination folder
-            System.Diagnostics.Process.Start(_destination);
+            System.Diagnostics.Process.Start(_settings.DestinationDirectory);
         }
 
         private async Task MoveScreenshots(List<string> files)
@@ -98,10 +96,10 @@ namespace VRC_Screenshot_Archiver
 
                 string dateFolders = GetDateFolders(match);
 
-                string destPath = Path.Combine(_destination, dateFolders, filename);
+                string destPath = Path.Combine(_settings.DestinationDirectory, dateFolders, filename);
                 try
                 {
-                    Directory.CreateDirectory(Path.Combine(_destination, dateFolders));
+                    Directory.CreateDirectory(Path.Combine(_settings.DestinationDirectory, dateFolders));
                 }
                 catch
                 {
@@ -121,7 +119,7 @@ namespace VRC_Screenshot_Archiver
 
         private List<string> GetAllFiles(List<string> subFolders)
         {
-            List<string> files = Directory.GetFiles(_source, "*VRChat_*.png").ToList();
+            List<string> files = Directory.GetFiles(_settings.SourceDirectory, "*VRChat_*.png").ToList();
             foreach (string src in subFolders)
             {
                 files.AddRange(Directory.GetFiles(src, "*VRChat_*.png"));
@@ -152,11 +150,11 @@ namespace VRC_Screenshot_Archiver
         private string GetDateFolders(Match match)
         {
             string dateFolders = string.Empty;
-            if (_settings.HasFlag(Grouping.ByYear))
+            if (_settings.GroupingSettings.HasFlag(Grouping.ByYear))
                 dateFolders = Path.Combine(dateFolders, $"{match.Groups[3].Value}"); // yyyy
-            if (_settings.HasFlag(Grouping.ByMonth))
+            if (_settings.GroupingSettings.HasFlag(Grouping.ByMonth))
                 dateFolders = Path.Combine(dateFolders, $"{match.Groups[2].Value}"); // yyyy-mm
-            if (_settings.HasFlag(Grouping.ByDay))
+            if (_settings.GroupingSettings.HasFlag(Grouping.ByDay))
                 dateFolders = Path.Combine(dateFolders, $"{match.Groups[1].Value}"); // yyyy-mm-dd
             return dateFolders;
         }
@@ -172,11 +170,9 @@ namespace VRC_Screenshot_Archiver
             }
         }
 
-        private void SaveUserSettings()
+        private void OnDirectoriesValidated()
         {
-            Properties.Settings.Default.SourceDirectory = _source;
-            Properties.Settings.Default.DestinationDirectory = _destination;
-            Properties.Settings.Default.Save();
+            DirectoriesValidated?.Invoke(this, _settings);
         }
     }
 }

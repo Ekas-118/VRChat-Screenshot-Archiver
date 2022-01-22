@@ -75,6 +75,13 @@ namespace VRC_Screenshot_Archiver
             }
         }
 
+        private void SaveDirectories(object sender, ArchiveSettings settings)
+        {
+            Properties.Settings.Default.SourceDirectory = settings.SourceDirectory;
+            Properties.Settings.Default.DestinationDirectory = settings.DestinationDirectory;
+            Properties.Settings.Default.Save();
+        }
+
         private async void ArchiveButton_Click(object sender, EventArgs e)
         {
             ArchiveButton.Enabled = SettingsButton.Enabled = false;
@@ -82,7 +89,15 @@ namespace VRC_Screenshot_Archiver
             Progress<ArchiveProgress> progress = new Progress<ArchiveProgress>();
             progress.ProgressChanged += UpdateStatus;
 
-            var archiver = new Archiver(progress, SourcePath.Text, DestinationPath.Text, _groupSettings);
+            ArchiveSettings settings = new ArchiveSettings()
+            {
+                SourceDirectory = SourcePath.Text,
+                DestinationDirectory = DestinationPath.Text,
+                GroupingSettings = _groupSettings
+            };
+
+            var archiver = new Archiver(progress, settings);
+            archiver.DirectoriesValidated += SaveDirectories;
 
             await archiver.ArchiveAsync();
 
