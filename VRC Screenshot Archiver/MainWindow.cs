@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 using System.Windows.Forms;
+using VRC_Screenshot_Archiver.Library;
 
 namespace VRC_Screenshot_Archiver
 {

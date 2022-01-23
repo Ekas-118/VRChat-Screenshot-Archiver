@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace VRC_Screenshot_Archiver
+namespace VRC_Screenshot_Archiver.Library
 {
     /// <summary>
     /// Class for archiving VRChat screenshots

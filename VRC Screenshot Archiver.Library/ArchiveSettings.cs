@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VRC_Screenshot_Archiver
+namespace VRC_Screenshot_Archiver.Library
 {
     public class ArchiveSettings
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace VRC_Screenshot_Archiver
+namespace VRC_Screenshot_Archiver.Library
 {
     /// <summary>
     /// Enum for screenshot grouping settings

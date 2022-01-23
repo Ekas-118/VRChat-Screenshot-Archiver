@@ -90,8 +90,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ArchiveProgress.cs" />
-    <Compile Include="Archiver.cs" />
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -107,8 +105,6 @@
     <Compile Include="SettingsMenu.Designer.cs">
       <DependentUpon>SettingsMenu.cs</DependentUpon>
     </Compile>
-    <Compile Include="Grouping.cs" />
-    <Compile Include="ArchiveSettings.cs" />
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </EmbeddedResource>
@@ -155,6 +151,11 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\VRC Screenshot Archiver.Library\VRC Screenshot Archiver.Library.csproj">
+      <Project>{d12aa6bb-1dda-4636-b273-bfffa8655a0b}</Project>
+      <Name>VRC Screenshot Archiver.Library</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
