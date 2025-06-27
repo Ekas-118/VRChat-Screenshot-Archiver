@@ -45,7 +45,7 @@ namespace VRC_Screenshot_Archiver
             DestinationPath.Text = destinationDirectory;
         }
 
-        private void UpdateStatusLabel(object sender, ArchiveProgress status)
+        private void UpdateStatusLabel(ArchiveProgress status)
         {
             if (!string.IsNullOrEmpty(status.ErrorMessage))
             {
@@ -68,10 +68,9 @@ namespace VRC_Screenshot_Archiver
         {
             ArchiveButton.Enabled = SettingsButton.Enabled = false;
 
-            Progress<ArchiveProgress> progress = new Progress<ArchiveProgress>();
-            progress.ProgressChanged += UpdateStatusLabel;
+            var progress = new Progress<ArchiveProgress>(UpdateStatusLabel);
 
-            ArchiveSettings settings = new ArchiveSettings()
+            var settings = new ArchiveSettings()
             {
                 SourceDirectory = SourcePath.Text,
                 DestinationDirectory = DestinationPath.Text,
@@ -81,6 +80,7 @@ namespace VRC_Screenshot_Archiver
             var archiver = new Archiver(progress, settings);
             archiver.DirectoriesValidated += SaveDirectories;
 
+            StatusLabel.Text = string.Empty;
             await archiver.ArchiveAsync();
 
             ArchiveButton.Enabled = SettingsButton.Enabled = true;
@@ -88,7 +88,7 @@ namespace VRC_Screenshot_Archiver
 
         private void SettingsButton_Click(object sender, EventArgs e)
         {
-            using (SettingsMenu sm = new SettingsMenu(_groupSettings))
+            using (var sm = new SettingsMenu(_groupSettings))
             {
                 if (sm.ShowDialog() == DialogResult.OK)
                 {
@@ -104,7 +104,7 @@ namespace VRC_Screenshot_Archiver
 
         private void BrowseDestination_Click(object sender, EventArgs e)
         {
-            CommonOpenFileDialog dialog = new CommonOpenFileDialog
+            var dialog = new CommonOpenFileDialog
             {
                 IsFolderPicker = true,
                 InitialDirectory = DestinationPath.Text
@@ -118,7 +118,7 @@ namespace VRC_Screenshot_Archiver
 
         private void BrowseSource_Click(object sender, EventArgs e)
         {
-            CommonOpenFileDialog dialog = new CommonOpenFileDialog
+            var dialog = new CommonOpenFileDialog
             {
                 IsFolderPicker = true,
                 InitialDirectory = SourcePath.Text

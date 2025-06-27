@@ -4,14 +4,18 @@ namespace VRC_Screenshot_Archiver.Library
 {
     public class ArchiveProgress
     {
-        public int FilesMoved { get; set; }
+        public int FilesMoved;
 
-        public int FilesFailed { get; set; }
+        public int FilesFailed;
 
-        public int ImagesFound { get; set; }
+        public int ImagesFound;
 
         public string ErrorMessage { get; set; }
 
-        public string Message => $"{FilesMoved} images moved. {(FilesFailed > 0 ? $"{FilesFailed} failed." : "")}{Environment.NewLine}{ImagesFound} images found.";
+        public string Message => 
+            $"{(FilesMoved > 0 ? $"{FilesMoved} images moved. " : string.Empty)}" +
+            $"{(FilesFailed > 0 ? $"{FilesFailed} failed." : string.Empty)}" +
+            $"{(FilesMoved > 0 || FilesFailed > 0 ? Environment.NewLine : string.Empty)}" +
+            $"{ImagesFound} images found.";
     }
 }
