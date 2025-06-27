@@ -185,7 +185,7 @@ namespace VRC_Screenshot_Archiver
             this.versionLabel.Name = "versionLabel";
             this.versionLabel.Size = new System.Drawing.Size(47, 19);
             this.versionLabel.TabIndex = 15;
-            this.versionLabel.Text = "v1.2.0";
+            this.versionLabel.Text = "v1.3.0";
             // 
             // titleIcon
             // 
@@ -218,7 +218,7 @@ namespace VRC_Screenshot_Archiver
             this.CloseButton.FlatAppearance.BorderSize = 0;
             this.CloseButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.CloseButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.CloseButton.IconChar = FontAwesome.Sharp.IconChar.Times;
+            this.CloseButton.IconChar = FontAwesome.Sharp.IconChar.Remove;
             this.CloseButton.IconColor = System.Drawing.Color.White;
             this.CloseButton.IconFont = FontAwesome.Sharp.IconFont.Solid;
             this.CloseButton.IconSize = 25;
