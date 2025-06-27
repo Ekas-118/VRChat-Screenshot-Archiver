@@ -26,7 +26,9 @@ Example result with all grouping settings enabled:
 
 **Your directories and settings will be saved locally so you will only have to set them up once!**
 
-**Note:** Only screenshots with the file name `VRChat_RESXxRESY_YYYY-MM-DD_hh-mm-ss.###.png` <br> (*such as `VRChat_1920x1080_2021-01-01_00-00-00.999.png`*) will be archived.
+**Note:** Only screenshots with these file name formats will be archived:
+- `VRChat_RESXxRESY_YYYY-MM-DD_hh-mm-ss.###.png` <br> (*such as `VRChat_1920x1080_2021-01-01_00-00-00.999.png`*)
+- `VRChat_YYYY-MM-DD_hh-mm-ss.###_RESXxRESY.png` <br> (*such as `VRChat_2021-01-01_00-00-00.999__1920x1080.png`*)
 
 ## Feedback
 
@@ -38,4 +40,4 @@ Feel free to report bugs or request features by [submitting an issue](https://gi
 
 ## About
 
-VRChat Screenshot Archiver is and open-source software and is not affiliated with VRChat in any way.
+VRChat Screenshot Archiver is and open-source software and is not affiliated with VRChat.
