@@ -15,11 +15,10 @@ namespace VRC_Screenshot_Archiver.Library
     /// </summary>
     public class Archiver
     {
-        /// <summary>
-        /// Old VRChat screenshot filename format <br/>
-        /// VRChat_RESXxRESY_YYYY-MM-DD_hh-mm-ss.###.png
-        /// </summary>
+        // VRChat_RESXxRESY_YYYY-MM-DD_hh-mm-ss.###.png
         private readonly Regex _oldFileRegex = new Regex("^VRChat_[0-9]{3,4}x[0-9]{3,4}_((([0-9]{4})-[0-9]{2})-[0-9]{2})_[0-9]{2}-[0-9]{2}-[0-9]{2}.[0-9]{3}.png$");
+        // VRChat_YYYY-MM-DD_hh-mm-ss.###_RESXxRESY.png
+        private readonly Regex _newFileRegex = new Regex("^VRChat_((([0-9]{4})-[0-9]{2})-[0-9]{2})_[0-9]{2}-[0-9]{2}-[0-9]{2}.[0-9]{3}_[0-9]{3,4}x[0-9]{3,4}.png$");
 
         private ArchiveProgress _progress;
 
@@ -97,6 +96,10 @@ namespace VRC_Screenshot_Archiver.Library
 
                 var match = _oldFileRegex.Match(filename);
 
+                if (!match.Success)
+                {
+                    match = _newFileRegex.Match(filename);
+                }
                 if (!match.Success)
                 {
                     return;
