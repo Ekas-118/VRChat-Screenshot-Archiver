@@ -61,7 +61,7 @@ namespace VRC_Screenshot_Archiver
             this.CloseButton.FlatAppearance.BorderSize = 0;
             this.CloseButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.CloseButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.CloseButton.IconChar = FontAwesome.Sharp.IconChar.Times;
+            this.CloseButton.IconChar = FontAwesome.Sharp.IconChar.Remove;
             this.CloseButton.IconColor = System.Drawing.Color.White;
             this.CloseButton.IconFont = FontAwesome.Sharp.IconFont.Solid;
             this.CloseButton.IconSize = 20;
@@ -108,6 +108,7 @@ namespace VRC_Screenshot_Archiver
             this.OKButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.OKButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(209)))), ((int)(((byte)(237)))));
+            this.OKButton.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.OKButton.FlatAppearance.BorderSize = 0;
             this.OKButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.OKButton.Font = new System.Drawing.Font("Bahnschrift SemiLight SemiConde", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
@@ -159,7 +160,7 @@ namespace VRC_Screenshot_Archiver
             this.TitleLabel.ForeColor = System.Drawing.Color.White;
             this.TitleLabel.Location = new System.Drawing.Point(70, 52);
             this.TitleLabel.Name = "TitleLabel";
-            this.TitleLabel.Size = new System.Drawing.Size(124, 32);
+            this.TitleLabel.Size = new System.Drawing.Size(123, 32);
             this.TitleLabel.TabIndex = 16;
             this.TitleLabel.Text = "Settings";
             // 

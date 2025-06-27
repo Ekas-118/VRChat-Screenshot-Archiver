@@ -1,41 +1,27 @@
 ﻿using Microsoft.WindowsAPICodePack.Dialogs;
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
 using VRC_Screenshot_Archiver.Library;
+using VRC_Screenshot_Archiver.Properties;
 
 namespace VRC_Screenshot_Archiver
 {
     public partial class MainWindow : Form
     {
-        /// <summary>
-        /// The screenshot grouping settings
-        /// </summary>
-        private Grouping _groupSettings;
+        private FolderGrouping _groupSettings;
 
-        #region Window drag variables
-
-        /// <summary>
-        /// Mouse location variables for moving the window
-        /// </summary>
         private int _mouseinX, _mouseinY, _mouseX, _mouseY;
-        /// <summary>
-        /// True while the left mouse button is clicked down
-        /// </summary>
         private bool _mouseDown = false;
 
-        #endregion
-
-        /// <summary>
-        /// Default constructor
-        /// </summary>
         public MainWindow()
         {
             InitializeComponent();
 
             SetDirectories();
 
-            _groupSettings = (Grouping)Properties.Settings.Default.GroupSettings;
+            _groupSettings = (FolderGrouping)Settings.Default.GroupSettings;
         }
 
         /// <summary>
@@ -43,33 +29,28 @@ namespace VRC_Screenshot_Archiver
         /// </summary>
         private void SetDirectories()
         {
-            string sourceDirectory = Properties.Settings.Default.SourceDirectory;
-            string destinationDirectory = Properties.Settings.Default.DestinationDirectory;
+            string sourceDirectory = Settings.Default.SourceDirectory;
+            string destinationDirectory = Settings.Default.DestinationDirectory;
 
             if (sourceDirectory == String.Empty)
-                // Set source path to Pictures/VRChat unless specified otherwise in user settings
+            {
+                // Pictures/VRChat
                 SourcePath.Text = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyPictures), "VRChat");
+            }
             else
-                // Set source folder to the one specified in user settings
+            {
                 SourcePath.Text = sourceDirectory;
+            }
 
-            // Set destination folder
             DestinationPath.Text = destinationDirectory;
         }
 
-        /// <summary>
-        /// Updates the status label
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="status"></param>
-        private void UpdateStatus(object sender, ArchiveProgress status)
+        private void UpdateStatusLabel(object sender, ArchiveProgress status)
         {
-            // If there is an error message, display it
             if (!string.IsNullOrEmpty(status.ErrorMessage))
             {
                 StatusLabel.Text = status.ErrorMessage;
             }
-            // otherwise, display the normal info
             else
             {
                 StatusLabel.Text = status.Message;
@@ -78,9 +59,9 @@ namespace VRC_Screenshot_Archiver
 
         private void SaveDirectories(object sender, ArchiveSettings settings)
         {
-            Properties.Settings.Default.SourceDirectory = settings.SourceDirectory;
-            Properties.Settings.Default.DestinationDirectory = settings.DestinationDirectory;
-            Properties.Settings.Default.Save();
+            Settings.Default.SourceDirectory = settings.SourceDirectory;
+            Settings.Default.DestinationDirectory = settings.DestinationDirectory;
+            Settings.Default.Save();
         }
 
         private async void ArchiveButton_Click(object sender, EventArgs e)
@@ -88,7 +69,7 @@ namespace VRC_Screenshot_Archiver
             ArchiveButton.Enabled = SettingsButton.Enabled = false;
 
             Progress<ArchiveProgress> progress = new Progress<ArchiveProgress>();
-            progress.ProgressChanged += UpdateStatus;
+            progress.ProgressChanged += UpdateStatusLabel;
 
             ArchiveSettings settings = new ArchiveSettings()
             {
@@ -105,8 +86,6 @@ namespace VRC_Screenshot_Archiver
             ArchiveButton.Enabled = SettingsButton.Enabled = true;
         }
 
-        #region GitHub and settings button methods
-
         private void SettingsButton_Click(object sender, EventArgs e)
         {
             using (SettingsMenu sm = new SettingsMenu(_groupSettings))
@@ -120,12 +99,8 @@ namespace VRC_Screenshot_Archiver
 
         private void GithubButton_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("https://github.com/Ekas-118/VRChat-Screenshot-Archiver");
+            Process.Start("https://github.com/Ekas-118/VRChat-Screenshot-Archiver");
         }
-
-        #endregion
-
-        #region Browse button methods
 
         private void BrowseDestination_Click(object sender, EventArgs e)
         {
@@ -155,10 +130,6 @@ namespace VRC_Screenshot_Archiver
             }
         }
 
-        #endregion
-
-        #region Control button methods
-
         private void CloseButton_Click(object sender, EventArgs e)
         {
             Application.Exit();
@@ -168,10 +139,6 @@ namespace VRC_Screenshot_Archiver
         {
             WindowState = FormWindowState.Minimized;
         }
-
-        #endregion
-
-        #region Window drag methods
 
         private void TitleBar_MouseDown(object sender, MouseEventArgs e)
         {
@@ -187,7 +154,7 @@ namespace VRC_Screenshot_Archiver
                 _mouseX = MousePosition.X - _mouseinX;
                 _mouseY = MousePosition.Y - _mouseinY;
 
-                this.SetDesktopLocation(_mouseX, _mouseY);
+                SetDesktopLocation(_mouseX, _mouseY);
             }
         }
 
@@ -195,7 +162,5 @@ namespace VRC_Screenshot_Archiver
         {
             _mouseDown = false;
         }
-
-        #endregion
     }
 }

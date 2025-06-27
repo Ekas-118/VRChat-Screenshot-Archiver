@@ -2,11 +2,8 @@
 
 namespace VRC_Screenshot_Archiver.Library
 {
-    /// <summary>
-    /// Enum for screenshot grouping settings
-    /// </summary>
     [Flags]
-    public enum Grouping
+    public enum FolderGrouping
     {
         ByYear = 1 << 0,
         ByMonth = 1 << 1,

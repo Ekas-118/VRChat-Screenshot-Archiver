@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -13,10 +14,10 @@ namespace VRC_Screenshot_Archiver.Library
     public class Archiver
     {
         /// <summary>
-        /// Regex for filtering VRChat screenshot files
+        /// Old VRChat screenshot filename format <br/>
         /// VRChat_RESXxRESY_YYYY-MM-DD_hh-mm-ss.###.png
         /// </summary>
-        private readonly Regex _regex = new Regex("^VRChat_[0-9]{3,4}x[0-9]{3,4}_((([0-9]{4})-[0-9]{2})-[0-9]{2})_[0-9]{2}-[0-9]{2}-[0-9]{2}.[0-9]{3}.png$");
+        private readonly Regex _oldFileRegex = new Regex("^VRChat_[0-9]{3,4}x[0-9]{3,4}_((([0-9]{4})-[0-9]{2})-[0-9]{2})_[0-9]{2}-[0-9]{2}-[0-9]{2}.[0-9]{3}.png$");
         private readonly ArchiveProgress _report = new ArchiveProgress();
 
         private readonly IProgress<ArchiveProgress> _progress;
@@ -33,10 +34,6 @@ namespace VRC_Screenshot_Archiver.Library
         /// <summary>
         /// Archives VRChat screenshots by moving them to another destination and grouping them into folders by date (if specified by grouping settings)
         /// </summary>
-        /// <param name="progress">Status information of the method progress</param>
-        /// <param name="source">Screenshot folder path</param>
-        /// <param name="destination">Destination folder path</param>
-        /// <param name="settings">Grouping settings</param>
         public async Task ArchiveAsync()
         {
             // Reset status
@@ -78,7 +75,7 @@ namespace VRC_Screenshot_Archiver.Library
             RemoveEmptySubfolders(subFolders);
 
             // Open the destination folder
-            System.Diagnostics.Process.Start(_settings.DestinationDirectory);
+            Process.Start(_settings.DestinationDirectory);
         }
 
         private async Task MoveScreenshots(List<string> files)
@@ -87,7 +84,7 @@ namespace VRC_Screenshot_Archiver.Library
             {
                 string filename = Path.GetFileName(file);
 
-                var match = _regex.Match(filename);
+                var match = _oldFileRegex.Match(filename);
 
                 if (!match.Success)
                 {
@@ -150,11 +147,11 @@ namespace VRC_Screenshot_Archiver.Library
         private string GetDateFolders(Match match)
         {
             string dateFolders = string.Empty;
-            if (_settings.GroupingSettings.HasFlag(Grouping.ByYear))
+            if (_settings.GroupingSettings.HasFlag(FolderGrouping.ByYear))
                 dateFolders = Path.Combine(dateFolders, $"{match.Groups[3].Value}"); // yyyy
-            if (_settings.GroupingSettings.HasFlag(Grouping.ByMonth))
+            if (_settings.GroupingSettings.HasFlag(FolderGrouping.ByMonth))
                 dateFolders = Path.Combine(dateFolders, $"{match.Groups[2].Value}"); // yyyy-mm
-            if (_settings.GroupingSettings.HasFlag(Grouping.ByDay))
+            if (_settings.GroupingSettings.HasFlag(FolderGrouping.ByDay))
                 dateFolders = Path.Combine(dateFolders, $"{match.Groups[1].Value}"); // yyyy-mm-dd
             return dateFolders;
         }

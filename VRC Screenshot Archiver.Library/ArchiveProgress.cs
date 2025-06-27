@@ -2,40 +2,16 @@
 
 namespace VRC_Screenshot_Archiver.Library
 {
-    /// <summary>
-    /// Model for storing archiving progress information
-    /// </summary>
     public class ArchiveProgress
     {
-        /// <summary>
-        /// Count of files successfully moved
-        /// </summary>
-        public int FilesMoved { get; set; } = 0;
+        public int FilesMoved { get; set; }
 
-        /// <summary>
-        /// Count of files that couldn't be moved
-        /// </summary>
-        public int FilesFailed { get; set; } = 0;
+        public int FilesFailed { get; set; }
 
-        /// <summary>
-        /// Count of total images found
-        /// </summary>
-        public int ImagesFound { get; set; } = 0;
+        public int ImagesFound { get; set; }
 
-        /// <summary>
-        /// Message of an error, if there is one
-        /// </summary>
         public string ErrorMessage { get; set; }
 
-        /// <summary>
-        /// Progress status information
-        /// </summary>
-        public string Message
-        {
-            get
-            {
-                return $"{FilesMoved} images moved. {(FilesFailed > 0 ? $"{FilesFailed} failed." : "")}{Environment.NewLine}{ImagesFound} images found.";
-            }
-        }
+        public string Message => $"{FilesMoved} images moved. {(FilesFailed > 0 ? $"{FilesFailed} failed." : "")}{Environment.NewLine}{ImagesFound} images found.";
     }
 }

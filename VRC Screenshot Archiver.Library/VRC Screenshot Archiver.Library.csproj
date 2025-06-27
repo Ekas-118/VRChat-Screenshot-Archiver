@@ -45,7 +45,7 @@
     <Compile Include="ArchiveProgress.cs" />
     <Compile Include="Archiver.cs" />
     <Compile Include="ArchiveSettings.cs" />
-    <Compile Include="Grouping.cs" />
+    <Compile Include="FolderGrouping.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
