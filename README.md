@@ -28,7 +28,7 @@ Example result with all grouping settings enabled:
 
 **Note:** Only screenshots with these file name formats will be archived:
 - `VRChat_RESXxRESY_YYYY-MM-DD_hh-mm-ss.###.png` <br> (*such as `VRChat_1920x1080_2021-01-01_00-00-00.999.png`*)
-- `VRChat_YYYY-MM-DD_hh-mm-ss.###_RESXxRESY.png` <br> (*such as `VRChat_2021-01-01_00-00-00.999__1920x1080.png`*)
+- `VRChat_YYYY-MM-DD_hh-mm-ss.###_RESXxRESY.png` <br> (*such as `VRChat_2021-01-01_00-00-00.999_1920x1080.png`*)
 
 ## Feedback
 
